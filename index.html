@@ -14,18 +14,19 @@
         }
         
         body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-color: #f5f5f5;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px;
+            padding: 15px;
+            color: #333;
         }
         
         .login-container {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             width: 100%;
             max-width: 450px;
             overflow: hidden;
@@ -34,40 +35,41 @@
         .login-header {
             background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
             color: white;
-            padding: 30px;
+            padding: 20px;
             text-align: center;
         }
         
         .login-header h1 {
-            font-size: 28px;
-            margin-bottom: 10px;
+            font-size: 1.5rem;
+            margin-bottom: 5px;
         }
         
         .login-header p {
             opacity: 0.9;
             font-size: 14px;
         }
-        
+
         .login-content {
-            padding: 30px;
-        }
+            padding: 20px;
+        }        
         
         .input-group {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
         .input-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: bold;
             color: #2c3e50;
+            font-size: 14px;
         }
         
         .input-group input {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
             font-size: 16px;
             transition: border 0.3s;
         }
@@ -79,69 +81,216 @@
         
         .login-btn {
             width: 100%;
-            padding: 14px;
-            background: #2ecc71;
+            padding: 10px;
+            background-color: #2ecc71;
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 5px;
             font-size: 16px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background-color 0.3s;
             font-weight: bold;
         }
         
         .login-btn:hover {
-            background: #27ae60;
+            background-color: #27ae60;
         }
         
         .device-info {
-            background: #f8f9fa;
-            border-radius: 8px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
             padding: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
+            margin-bottom: 15px;
             border-left: 4px solid #3498db;
         }
         
         .device-info h4 {
             color: #2c3e50;
             margin-bottom: 10px;
+            font-size: 14px;
         }
         
         .device-info p {
             color: #666;
-            font-size: 14px;
+            font-size: 13px;
             margin-bottom: 5px;
         }
         
         .status-info {
-            background: #e8f4fc;
-            border-radius: 8px;
-            padding: 15px;
-            margin-top: 20px;
+            background-color: #e8f4fc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 15px;
             font-size: 14px;
+            text-align: center;
         }
         
         .error-message {
-            background: #ffebee;
+            background-color: #ffebee;
             color: #c62828;
-            padding: 12px;
-            border-radius: 8px;
+            padding: 10px;
+            border-radius: 5px;
             margin-top: 15px;
             display: none;
+            font-size: 14px;
         }
         
         .user-note {
             font-size: 12px;
             color: #666;
-            margin-top: 10px;
+            margin-top: 15px;
             text-align: center;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .wechat-info {
+            background: linear-gradient(135deg, #09bb07 0%, #09bb07 100%);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        /* 手机屏幕适配 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+                padding-top: 30px;
+            }
+            
+            .login-container {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+            
+            .login-header {
+                padding: 15px;
+            }
+            
+            .login-header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .login-header p {
+                font-size: 13px;
+            }
+            
+            .login-content {
+                padding: 15px;
+            }
+            
+            .input-group {
+                margin-bottom: 15px;
+            }
+            
+            .input-group label {
+                font-size: 13px;
+            }
+            
+            .input-group input {
+                padding: 8px;
+                font-size: 15px;
+            }
+            
+            .login-btn {
+                padding: 12px;
+                font-size: 15px;
+            }
+            
+            .device-info {
+                padding: 12px;
+                margin-top: 12px;
+                margin-bottom: 12px;
+            }
+            
+            .device-info h4 {
+                font-size: 13px;
+            }
+            
+            .device-info p {
+                font-size: 12px;
+            }
+            
+            .status-info {
+                font-size: 13px;
+                padding: 8px;
+            }
+            
+            .error-message {
+                font-size: 13px;
+                padding: 8px;
+            }
+            
+            .user-note {
+                font-size: 11px;
+                padding: 6px;
+            }
+            
+            .wechat-info {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .login-header h1 {
+                font-size: 1.2rem;
+            }
+            
+            .login-header p {
+                font-size: 12px;
+            }
+            
+            .input-group input {
+                padding: 8px;
+                font-size: 14px;
+            }
+            
+            .login-btn {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .device-info {
+                padding: 10px;
+            }
+            
+            .device-info h4 {
+                font-size: 12px;
+            }
+            
+            .device-info p {
+                font-size: 11px;
+            }
+            
+            .status-info {
+                font-size: 12px;
+            }
+            
+            .error-message {
+                font-size: 12px;
+            }
+            
+            .user-note {
+                font-size: 10px;
+            }
+            
+            .wechat-info {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="login-container">
         <div class="login-header">
-            <h1>🔐 阿六智能统计</h1>
+            <h1>阿六智能统计</h1>
             <p>请输入密码登录系统</p>
         </div>
         
@@ -159,8 +308,12 @@
             
             <button class="login-btn" onclick="login()">🚀 登录系统</button>
             
+            <div class="wechat-info">
+                密码请联系阿六微信 aizntj
+            </div>
+            
             <div class="status-info" id="accountStatus">
-                <p>🔍 正在检查账户状态...</p>
+                <!-- 账户状态信息 -->
             </div>
             
             <div class="error-message" id="errorMessage">

@@ -1,13 +1,10 @@
-<!-- main.html -->
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>阿六智能统计系统</title>
-    <!-- 原有CSS样式保持不变 -->
     <style>
-        /* 原有的所有CSS样式都保留在这里 */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -23,9 +20,379 @@
             margin: 0 auto;
         }
         
-        /* ... 所有原有样式 ... */
+        .container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
         
-        /* 新增：用户信息栏 */
+        h1 {
+            text-align: center;
+            margin-bottom: 15px;
+            color: #2c3e50;
+            font-size: 1.5rem;
+        }
+        
+        h2 {
+            margin-bottom: 10px;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+        
+        .input-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        select, textarea, input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .single-button {
+            width: 100%;
+            margin-bottom: 15px;
+        }
+        
+        button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #3498db;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        button.danger {
+            background-color: #e74c3c;
+        }
+        
+        button.danger:hover {
+            background-color: #c0392b;
+        }
+        
+        button.success {
+            background-color: #2ecc71;
+        }
+        
+        button.success:hover {
+            background-color: #27ae60;
+        }
+        
+        .mode-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .mode-buttons button {
+            flex: 1;
+        }
+        
+        .mode-buttons button.active {
+            background-color: #2c3e50;
+        }
+        
+        .display-area {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .stats-info {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .numbers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .number-column {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .number-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+        
+        .number-code {
+            font-weight: bold;
+        }
+        
+        .number-count {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .modal h2 {
+            margin-bottom: 15px;
+        }
+        
+        .modal input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+        
+        .login-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            max-width: 400px;
+            margin: 50px auto;
+        }
+        
+        .login-container h1 {
+            margin-bottom: 20px;
+        }
+        
+        .record-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .settlement-section, .evaluation-section {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .rate-buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        
+        .rate-buttons button {
+            padding: 8px;
+        }
+        
+        .rate-buttons button.active {
+            background-color: #2c3e50;
+        }
+        
+        .result-display {
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        
+        .profit {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .loss {
+            background-color: #ffebee;
+            color: #c62828;
+        }
+        
+        .evaluation-result {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        /* 浮动名字选择框样式 */
+        .sticky-name-selector {
+            position: sticky;
+            top: 0;
+            background-color: white;
+            z-index: 100;
+            padding: 10px 15px;
+            margin: 0 -15px 15px -15px;
+            border-bottom: 1px solid #eee;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* 用户管理表格样式 */
+        .user-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 15px;
+        }
+        
+        .user-table th,
+        .user-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+        
+        .user-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        .user-table input {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        
+        .user-table button {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+        
+        /* 结算表格样式 */
+        .settlement-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        
+        .settlement-table th,
+        .settlement-table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 14px;
+        }
+        
+        .settlement-table th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        .settlement-table tfoot td {
+            background-color: #f8f9fa;
+            font-weight: bold;
+        }
+        
+        .settlement-table button {
+            padding: 5px 10px;
+            font-size: 14px;
+        }
+        
+        /* 记录编辑样式 */
+        .edit-record-modal textarea {
+            min-height: 100px;
+        }
+        
+        /* 吃码结果样式 */
+        .excess-group {
+            margin-bottom: 8px;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .excess-numbers {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        .excess-amount {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        
+        .excess-animals {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 2px;
+        }
+        
+        .copy-success {
+            background-color: #27ae60 !important;
+        }
+        
+        .copy-btn-pulse {
+            animation: pulse 0.5s ease-in-out;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        /* main.html新增样式：用户信息栏 */
         .user-info-bar {
             background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
             color: white;
@@ -90,6 +457,121 @@
             font-size: 14px;
             color: #666;
         }
+        
+        /* 手机屏幕适配 */
+        @media (max-width: 768px) {
+            .button-group {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .numbers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .rate-buttons {
+                grid-template-columns: repeat(4, 1fr);
+            }
+            
+            /* 调整号码项在小屏幕上的显示 */
+            .number-item {
+                padding: 6px;
+                font-size: 13px;
+            }
+            
+            /* 调整标题大小 */
+            h1 {
+                font-size: 1.3rem;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+            }
+            
+            /* 表格在小屏幕上的适配 */
+            .user-table,
+            .settlement-table {
+                font-size: 12px;
+            }
+            
+            .user-table th,
+            .user-table td,
+            .settlement-table th,
+            .settlement-table td {
+                padding: 6px;
+            }
+            
+            /* 调整用户信息栏在小屏幕上的显示 */
+            .user-info-bar {
+                padding: 8px 10px;
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+            
+            .user-info-left {
+                justify-content: space-between;
+            }
+            
+            .logout-btn {
+                width: 100%;
+            }
+            
+            .usage-stats {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+        }
+        
+        /* 更小屏幕的适配 */
+        @media (max-width: 480px) {
+            .numbers-grid {
+                gap: 6px;
+            }
+            
+            .number-item {
+                padding: 4px;
+                font-size: 12px;
+            }
+            
+            .rate-buttons {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .button-group {
+                grid-template-columns: 1fr;
+            }
+            
+            .user-table,
+            .settlement-table {
+                font-size: 11px;
+            }
+            
+            .user-table th,
+            .user-table td,
+            .settlement-table th,
+            .settlement-table td {
+                padding: 4px;
+            }
+            
+            /* 调整用户信息栏在更小屏幕上的显示 */
+            .user-info-left {
+                flex-direction: column;
+                text-align: center;
+                gap: 5px;
+            }
+            
+            .user-details h3 {
+                font-size: 14px;
+            }
+            
+            .user-details p {
+                font-size: 11px;
+            }
+            
+            .usage-stats {
+                font-size: 11px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -112,7 +594,7 @@
         总使用：<span id="totalUsage">0分钟</span>
     </div>
     
-    <!-- 原有系统容器 -->
+    <!-- 主应用界面 -->
     <div id="appPage">
         <h1>阿六智能统计</h1>
         
@@ -211,20 +693,180 @@
             </div>
         </div>
         
-        <!-- 原有所有模态框保持不变 -->
-        <!-- ... 原有所有modal代码 ... -->
+        <!-- 用户管理模态框 -->
+        <div class="modal" id="userManagementModal">
+            <div class="modal-content">
+                <h2>用户管理</h2>
+                <table class="user-table">
+                    <thead>
+                        <tr>
+                            <th>删除</th>
+                            <th>用户名字</th>
+                            <th>倍率</th>
+                            <th>返水%</th>
+                        </tr>
+                    </thead>
+                    <tbody id="userTableBody">
+                        <!-- 用户数据将通过JavaScript动态添加 -->
+                    </tbody>
+                </table>
+                
+                <div class="input-group">
+                    <label for="newUserName">新增用户:</label>
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 10px;">
+                        <input type="text" id="newUserName" placeholder="用户名字">
+                        <input type="number" id="newUserRate" placeholder="倍率" value="45">
+                        <input type="number" id="newUserRebate" placeholder="返水%" value="3">
+                    </div>
+                    <small style="color: #666;"></small>
+                </div>
+                
+                <div class="modal-buttons">
+                    <button id="addUserBtn">新增用户</button>
+                    <button id="saveUsersBtn" class="success">保存设置</button>
+                    <button id="closeUserManagementBtn">关闭</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 结算结果模态框 -->
+        <div class="modal" id="settlementResultModal">
+            <div class="modal-content">
+                <h2>结算结果</h2>
+                <div class="input-group">
+                    <label>开奖号码: <span id="settlementWinningNumbers"></span></label>
+                </div>
+                <div style="max-height: 400px; overflow-y: auto;">
+                    <table class="settlement-table" id="settlementTable">
+                        <thead>
+                            <tr>
+                                <th>名字</th>
+                                <th>下注总计</th>
+                                <th>返水金额</th>
+                                <th>扣返水</th>
+                                <th>中奖金额</th>
+                                <th>盈亏</th>
+                                <th>复制</th>
+                            </tr>
+                        </thead>
+                        <tbody id="settlementTableBody">
+                            <!-- 结算数据将通过JavaScript动态添加 -->
+                        </tbody>
+                        <tfoot id="settlementTableFooter">
+                            <!-- 总计行将通过JavaScript动态添加 -->
+                        </tfoot>
+                    </table>
+                </div>
+                <div class="modal-buttons">
+                    <button id="closeSettlementResultBtn">关闭</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 记录查看和编辑模态框 -->
+        <div class="modal edit-record-modal" id="recordsModal">
+            <div class="modal-content">
+                <h2>对单/修改</h2>
+                <div id="recordsList">
+                    <!-- 记录将通过JavaScript动态添加 -->
+                </div>
+                <div id="editRecordForm" style="display: none;">
+                    <h3>编辑记录</h3>
+                    <div class="input-group">
+                        <label for="editRecordContent">记录内容:</label>
+                        <textarea id="editRecordContent" placeholder="修改记录内容"></textarea>
+                    </div>
+                    <div class="modal-buttons">
+                        <button id="cancelEditBtn">取消</button>
+                        <button id="saveEditBtn" class="success">保存修改</button>
+                    </div>
+                </div>
+                <div class="modal-buttons">
+                    <button id="closeRecordsBtn">关闭</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 确认清除数据的模态框 -->
+        <div class="modal" id="confirmClearModal">
+            <div class="modal-content">
+                <h2>确认清除数据</h2>
+                <p>确定要清除全部吗？此操作不可撤销。</p>
+                <div class="modal-buttons">
+                    <button id="cancelClearBtn">取消</button>
+                    <button id="confirmClearBtn" class="danger">确认清除</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 退出登录按钮 -->
+        <button id="logoutBtn" class="danger" style="width: 100%; margin-top: 15px;">退出系统</button>
     </div>
 
     <!-- 引入Supabase客户端 -->
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     
     <script>
-        // 全局变量
-        let currentMode = 'total';
-        let totalRecords = [];
-        let users = [];
-        let lastClearTime = null;
-        let currentEditingRecordIndex = null;
+        // 全局变量 - 与AI智能统计.html保持一致
+        let currentMode = 'total'; // 'total' 或 'personal'
+        let totalRecords = []; // 存储所有记录
+        let users = []; // 存储用户信息 [{name, rate, rebate}]
+        let lastClearTime = null; // 上次清除数据的时间
+        let currentEditingRecordIndex = null; // 当前编辑的记录索引
+        
+        // 关键字映射 - 与AI智能统计.html保持一致
+        const keywordMapping = {
+            '鼠': '06 18 30 42',
+            '牛': '05 17 29 41',
+            '虎': '04 16 28 40',
+            '兔': '03 15 27 39',
+            '龙': '02 14 26 38',
+            '蛇': '01 13 25 37 49',
+            '马': '12 24 36 48',
+            '羊': '11 23 35 47',
+            '猴': '10 22 34 46',
+            '鸡': '09 21 33 45',
+            '狗': '08 20 32 44',
+            '猪': '07 19 31 43',
+            '野肖': '01 13 25 37 49 02 14 26 38 03 15 27 39 04 16 28 40 06 18 30 42 10 22 34 46',
+            '家肖': '05 17 29 41 07 19 31 43 08 20 32 44 09 21 33 45 11 23 35 47 12 24 36 48',
+            '红波': '01 02 07 08 12 13 18 19 23 24 29 30 34 35 40 45 46',
+            '蓝波': '03 04 09 10 14 15 20 25 26 31 36 37 41 42 47 48',
+            '绿波': '05 06 11 16 17 21 22 27 28 32 33 38 39 43 44 49',
+            '小单': '01 03 05 07 09 11 13 15 17 19 21 23',
+            '大单': '25 27 29 31 33 35 37 39 41 43 45 47 49',
+            '小双': '02 04 06 08 10 12 14 16 18 20 22 24',
+            '大双': '26 28 30 32 34 36 38 40 42 44 46 48',
+            '合双': '02 04 06 08 11 13 15 17 19 20 22 24 26 28 31 33 35 37 39 40 42 44 46 48',
+            '合单': '01 03 05 07 09 10 12 14 16 18 21 23 25 27 29 30 32 34 36 38 41 43 45 47 49',
+            '合小': '01 02 03 04 05 06 10 11 12 13 14 15 20 21 22 23 24 30 31 32 33 40 41 42',
+            '合大': '07 08 09 16 17 18 19 25 26 27 28 29 34 35 36 37 38 39 43 44 45 46 47 48 49',
+            '单': '01 03 05 07 09 11 13 15 17 19 21 23 25 27 29 31 33 35 37 39 41 43 45 47 49',
+            '双': '02 04 06 08 10 12 14 16 18 20 22 24 26 28 30 32 34 36 38 40 42 44 46 48',
+            '大': '25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49',
+            '小': '01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24',
+            '金': '03 04 11 12 25 26 33 34 41 42',
+            '木': '07 08 15 16 23 24 37 38 45 46',
+            '水': '13 14 21 22 29 30 43 44',
+            '火': '01 02 09 10 17 18 31 32 39 40 47 48',
+            '土': '05 06 19 20 27 28 35 36 49',
+            // 添加头尾数字映射
+            '0头': '01 02 03 04 05 06 07 08 09',
+            '1头': '10 12 13 14 15 16 17 18 19',
+            '2头': '20 21 22 23 24 25 26 27 28 29',
+            '3头': '30 31 32 33 34 35 36 37 38 39',
+            '4头': '40 41 42 43 44 45 46 47 48 49',
+            '0尾': '10 20 30 40',
+            '1尾': '01 11 21 31 41',
+            '2尾': '02 12 22 32 42',
+            '3尾': '03 13 23 33 43',
+            '4尾': '04 14 24 34 44',
+            '5尾': '05 15 25 35 45',
+            '6尾': '06 16 26 36 46',
+            '7尾': '07 17 27 37 47',
+            '8尾': '08 18 28 38 48',
+            '9尾': '09 19 29 39 49'
+        };
         
         // Supabase配置
         const SUPABASE_URL = 'https://mzsuaimcgphlcfrenrwg.supabase.co';
@@ -236,10 +878,12 @@
         
         // 初始化函数
         async function initializeApp() {
+            console.log('正在初始化应用...');
+            
             // 检查登录状态
             const isAuthenticated = await checkAuth();
             if (!isAuthenticated) {
-                window.location.href = 'login.html';
+                window.location.href = 'index.html'; // 修改为正确的登录页面
                 return;
             }
             
@@ -247,14 +891,16 @@
             await loadCurrentUser();
             
             // 初始化原有系统
-            loadUsers();
-            loadAllRecords();
+            await loadUsers();
+            await loadAllRecords();
             loadLastClearTime();
             refreshDisplay();
-            initializeControls();
+            initializeControls(); // 确保调用initializeControls
             
             // 开始使用时间统计
             startUsageTimer();
+            
+            console.log('应用初始化完成');
         }
         
         // 检查认证状态
@@ -428,19 +1074,19 @@
             }
             
             // 跳转到登录页
-            window.location.href = 'login.html';
+            window.location.href = 'index.html'; // 修改为正确的登录页面
         }
         
-        // 原有的所有函数都保留在这里
-        // 注意：需要修改所有使用localStorage的函数，改为使用Supabase
+        // ==================== 以下是原有统计系统的功能函数 ====================
         
-        // 修改loadUsers函数，从Supabase加载
+        // 加载用户列表
         async function loadUsers() {
-            // 从Supabase加载用户数据
+            if (!currentUser) return;
+            
             const { data, error } = await supabase
                 .from('user_settings')
                 .select('*')
-                .eq('password_hash', localStorage.getItem('user_password_hash'));
+                .eq('password_hash', currentUser.password_hash);
             
             if (error) {
                 console.error('加载用户设置失败：', error);
@@ -454,7 +1100,27 @@
             updateNameSelect();
         }
         
-        // 修改saveUsersToStorage函数
+        // 更新名字选择下拉框
+        function updateNameSelect() {
+            const nameSelect = document.getElementById('nameList');
+            nameSelect.innerHTML = '';
+            
+            // 添加默认选项
+            const defaultOption = document.createElement('option');
+            defaultOption.value = '请选择';
+            defaultOption.textContent = '请选择';
+            nameSelect.appendChild(defaultOption);
+            
+            // 添加用户选项
+            users.forEach(user => {
+                const option = document.createElement('option');
+                option.value = user.name;
+                option.textContent = user.name;
+                nameSelect.appendChild(option);
+            });
+        }
+        
+        // 保存用户列表到本地存储
         async function saveUsersToStorage() {
             if (!currentUser) return;
             
@@ -467,7 +1133,12 @@
                 });
         }
         
-        // 修改loadAllRecords函数
+        // 根据用户名获取用户信息
+        function getUserInfo(name) {
+            return users.find(user => user.name === name) || { name, rate: 45, rebate: 3 };
+        }
+        
+        // 加载所有记录
         async function loadAllRecords() {
             if (!currentUser) return;
             
@@ -486,7 +1157,7 @@
             }
         }
         
-        // 修改saveAllRecords函数
+        // 保存所有记录
         async function saveAllRecords() {
             if (!currentUser) return;
             
@@ -516,18 +1187,1041 @@
                 });
         }
         
-        // 原有其他函数都保持不变...
-        // ... 原有所有统计系统的JavaScript代码 ...
+        // 加载上次清除时间
+        function loadLastClearTime() {
+            const savedTime = localStorage.getItem('numberStats_lastClearTime');
+            if (savedTime) {
+                lastClearTime = parseInt(savedTime);
+            }
+        }
+        
+        // 保存上次清除时间
+        function saveLastClearTime() {
+            localStorage.setItem('numberStats_lastClearTime', lastClearTime.toString());
+        }
+        
+        // 初始化控件事件监听器
+        function initializeControls() {
+            console.log('正在初始化控件事件监听器...');
+            
+            // 主应用按钮事件监听
+            document.getElementById('submitBtn').addEventListener('click', submitData);
+            document.getElementById('clearDataBtn').addEventListener('click', showClearConfirm);
+            document.getElementById('manageUsersBtn').addEventListener('click', showUserManagement);
+            document.getElementById('showRecordsBtn').addEventListener('click', showRecords);
+            
+            // 页面切换按钮事件监听
+            document.getElementById('switchToSettlementBtn').addEventListener('click', toggleDisplay);
+            
+            // 模式按钮事件监听
+            document.getElementById('totalModeBtn').addEventListener('click', function() {
+                setMode('total');
+            });
+            document.getElementById('personalModeBtn').addEventListener('click', function() {
+                setMode('personal');
+            });
+            
+            // 用户管理相关事件监听
+            document.getElementById('addUserBtn').addEventListener('click', addNewUser);
+            document.getElementById('saveUsersBtn').addEventListener('click', saveUsers);
+            document.getElementById('closeUserManagementBtn').addEventListener('click', hideUserManagement);
+            
+            // 结算相关事件监听
+            document.getElementById('calculateSettlementBtn').addEventListener('click', calculateSettlement);
+            document.getElementById('closeSettlementResultBtn').addEventListener('click', hideSettlementResult);
+            
+            // 记录编辑相关事件监听
+            document.getElementById('cancelEditBtn').addEventListener('click', cancelEdit);
+            document.getElementById('saveEditBtn').addEventListener('click', saveEdit);
+            document.getElementById('closeRecordsBtn').addEventListener('click', hideRecords);
+            
+            // 确认清除数据相关事件监听
+            document.getElementById('cancelClearBtn').addEventListener('click', hideClearConfirm);
+            document.getElementById('confirmClearBtn').addEventListener('click', confirmClearData);
+            
+            // 评估系统按钮事件监听
+            document.getElementById('evaluateBtn').addEventListener('click', evaluateSystem);
+            document.getElementById('calculateExcessBtn').addEventListener('click', calculateExcess);
+            
+            // 名字选择变化时刷新显示
+            document.getElementById('nameList').addEventListener('change', function() {
+                if (currentMode === 'personal') {
+                    refreshDisplay();
+                }
+            });
+            
+            // 底部的退出系统按钮
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+            
+            console.log('控件事件监听器初始化完成');
+        }
+        
+        // ==================== 原有统计系统的核心功能函数 ====================
+        
+        // 设置显示模式
+        function setMode(mode) {
+            currentMode = mode;
+            
+            // 更新按钮状态
+            document.getElementById('totalModeBtn').classList.toggle('active', mode === 'total');
+            document.getElementById('personalModeBtn').classList.toggle('active', mode === 'personal');
+            
+            refreshDisplay();
+        }
+        
+        // 提交数据
+        function submitData() {
+            const inputText = document.getElementById('inputText').value.trim();
+            const selectedName = document.getElementById('nameList').value;
+
+            if (!inputText) {
+                alert('请输入内容！祝你天天开心！');
+                return;
+            }
+
+            const lines = inputText.split('\n');
+            let totalAdded = 0;
+            let recordCount = 0;
+
+            lines.forEach(line => {
+                if (line.trim()) {
+                    const lineTotal = processSingleLine(line.trim(), selectedName);
+                    totalAdded += lineTotal;
+                    recordCount++;
+                }
+            });
+
+            saveAllRecords();
+            refreshDisplay();
+
+            let operationType = totalAdded > 0 ? '增加' : (totalAdded < 0 ? '减少' : '无变化');
+            let displayTotal = Math.abs(totalAdded);
+            let nameInfo = selectedName !== '请选择' ? `（名字：${selectedName}）` : '';
+
+            alert(`操作完成！本次添加${recordCount}条记录${nameInfo}，总量${operationType}: ${displayTotal}`);
+            document.getElementById('inputText').value = '';
+        }
+        
+        // 处理单行记录
+        function processSingleLine(inputStr, name) {
+            // 保存原始输入
+            const originalInput = inputStr;
+            
+            // 将"各"替换为"+"，统一处理为增加操作
+            inputStr = inputStr.replace(/各/g, '+');
+            
+            // 使用正则表达式分割多个记录
+            const records = inputStr.split(/[!！，,]/);
+            let totalQuantity = 0;
+            
+            records.forEach(record => {
+                if (record.trim()) {
+                    // 对每个记录部分，调用processSingleRecord
+                    const originalParts = originalInput.split(/[!！，,]/);
+                    const recordIndex = records.indexOf(record);
+                    const partOriginal = originalParts[recordIndex] ? originalParts[recordIndex].trim() : record.trim();
+                    
+                    totalQuantity += processSingleRecord(record.trim(), name, partOriginal);
+                }
+            });
+            
+            return totalQuantity;
+        }
+        
+        // 处理单个记录
+        function processSingleRecord(inputStr, name, originalInput) {
+            // 转换关键字为号码 - 先处理头尾数字
+            inputStr = convertHeadTailKeywords(inputStr);
+            
+            // 再转换其他关键字
+            inputStr = convertKeywords(inputStr);
+            
+            // 解析操作和数量
+            let operation, quantity, numbersPart;
+            
+            // 查找最后一个+或-号的位置
+            const lastPlusIndex = inputStr.lastIndexOf('+');
+            const lastMinusIndex = inputStr.lastIndexOf('-');
+            
+            if (lastPlusIndex > lastMinusIndex) {
+                operation = '+';
+                numbersPart = inputStr.substring(0, lastPlusIndex).trim();
+                quantity = parseInt(inputStr.substring(lastPlusIndex + 1));
+            } else if (lastMinusIndex > lastPlusIndex) {
+                operation = '-';
+                numbersPart = inputStr.substring(0, lastMinusIndex).trim();
+                quantity = parseInt(inputStr.substring(lastMinusIndex + 1));
+            } else {
+                alert('格式错误！必须包含+或-号！');
+                return 0;
+            }
+            
+            if (isNaN(quantity)) {
+                alert('数量不是有效的数字！');
+                return 0;
+            }
+            
+            // 处理号码 - 支持多种分隔符：空格、.、-、/
+            let numbers = numbersPart.split(/[\s.-/]+/).filter(num => num.trim() !== '');
+            
+            // 处理连续数字（如010203）和个位数（如1.2.3）
+            let processedNumbers = [];
+            numbers.forEach(numStr => {
+                numStr = numStr.trim();
+                
+                // 处理个位数：转换为两位数字符串
+                if (numStr.length === 1 && /^\d$/.test(numStr)) {
+                    const twoDigits = numStr.padStart(2, '0');
+                    if (isValidNumber(twoDigits)) {
+                        processedNumbers.push(twoDigits);
+                    }
+                }
+                // 处理连续数字（如010203）
+                else if (numStr.length > 2 && /^\d+$/.test(numStr)) {
+                    // 分割为两位一组
+                    for (let i = 0; i < numStr.length; i += 2) {
+                        if (i + 2 <= numStr.length) {
+                            const twoDigits = numStr.substring(i, i + 2);
+                            if (isValidNumber(twoDigits)) {
+                                processedNumbers.push(twoDigits);
+                            }
+                        }
+                    }
+                } else {
+                    // 处理两位数
+                    if (isValidNumber(numStr)) {
+                        processedNumbers.push(numStr);
+                    } else if (numStr.length === 2 && /^\d+$/.test(numStr)) {
+                        // 如果是两位数但不是01-49，尝试作为个位数处理
+                        const num = parseInt(numStr);
+                        if (num >= 1 && num <= 49) {
+                            processedNumbers.push(numStr);
+                        }
+                    }
+                }
+            });
+            
+            // 如果没有有效号码，返回0
+            if (processedNumbers.length === 0) {
+                alert('没有找到有效的号码！');
+                return 0;
+            }
+            
+            // 对于减操作，数量为负
+            if (operation === '-') {
+                quantity = -quantity;
+            }
+            
+            // 保存记录 - 使用传入的originalInput，这是每个记录对应的部分
+            saveRecord(name, originalInput, processedNumbers.join(' '), quantity);
+            
+            // 计算实际总量变化（号码数量 × 每个号码的数量）
+            return processedNumbers.length * quantity;
+        }
+        
+        // 转换头尾关键字
+        function convertHeadTailKeywords(inputStr) {
+            // 按关键字长度降序排序，避免短关键字先匹配
+            const headTailKeys = Object.keys(keywordMapping).filter(key => 
+                key.includes('头') || key.includes('尾')
+            ).sort((a, b) => b.length - a.length);
+            
+            headTailKeys.forEach(keyword => {
+                const regex = new RegExp(keyword, 'g');
+                inputStr = inputStr.replace(regex, keywordMapping[keyword]);
+            });
+            
+            return inputStr;
+        }
+        
+        // 转换关键字
+        function convertKeywords(inputStr) {
+            // 按关键字长度降序排序，避免短关键字先匹配
+            const sortedKeys = Object.keys(keywordMapping).sort((a, b) => b.length - a.length);
+            
+            sortedKeys.forEach(keyword => {
+                const regex = new RegExp(keyword, 'g');
+                inputStr = inputStr.replace(regex, keywordMapping[keyword]);
+            });
+            
+            return inputStr;
+        }
+        
+        // 验证号码有效性
+        function isValidNumber(numStr) {
+            if (numStr.length !== 2 || !/^\d+$/.test(numStr)) {
+                return false;
+            }
+            
+            const num = parseInt(numStr);
+            return num >= 1 && num <= 49;
+        }
+        
+        // 获取号码对应的生肖
+        function getAnimalName(number) {
+            const num = parseInt(number);
+            
+            switch(num) {
+                case 1: case 13: case 25: case 37: case 49: return "蛇";
+                case 2: case 14: case 26: case 38: return "龙";
+                case 3: case 15: case 27: case 39: return "兔";
+                case 4: case 16: case 28: case 40: return "虎";
+                case 5: case 17: case 29: case 41: return "牛";
+                case 6: case 18: case 30: case 42: return "鼠";
+                case 7: case 19: case 31: case 43: return "猪";
+                case 8: case 20: case 32: case 44: return "狗";
+                case 9: case 21: case 33: case 45: return "鸡";
+                case 10: case 22: case 34: case 46: return "猴";
+                case 11: case 23: case 35: case 47: return "羊";
+                case 12: case 24: case 36: case 48: return "马";
+                default: return "未知";
+            }
+        }
+        
+        // 保存记录
+        function saveRecord(name, inputText, numbers, quantity) {
+            totalRecords.push({
+                name: name,
+                inputText: inputText,
+                numbers: numbers,
+                quantity: quantity,
+                timestamp: new Date().getTime()
+            });
+        }
+        
+        // 刷新显示
+        function refreshDisplay() {
+            if (currentMode === 'total') {
+                displayTotalNumbers();
+            } else {
+                const selectedName = document.getElementById('nameList').value;
+                displayPersonalNumbers(selectedName);
+            }
+        }
+        
+        // 显示总量
+        function displayTotalNumbers() {
+            const totalDict = calculateTotal();
+            displayNumbers(totalDict, '总量显示 - 所有用户合计');
+            displayTotalStats();
+        }
+        
+        // 显示个人数量
+        function displayPersonalNumbers(name) {
+            const personalDict = calculatePersonalTotal(name);
+            displayNumbers(personalDict, `个人显示 - ${name}`);
+            displayPersonalStats(name);
+        }
+        
+        // 计算总量
+        function calculateTotal() {
+            let totalDict = {};
+            // 初始化所有号码为0
+            for (let i = 1; i <= 49; i++) {
+                totalDict[String(i).padStart(2, '0')] = 0;
+            }
+            
+            totalRecords.forEach(record => {
+                const numbers = record.numbers.split(' ');
+                numbers.forEach(num => {
+                    if (num in totalDict) {
+                        totalDict[num] += record.quantity;
+                    }
+                });
+            });
+            
+            return totalDict;
+        }
+        
+        // 计算个人总量
+        function calculatePersonalTotal(name) {
+            let personalDict = {};
+            for (let i = 1; i <= 49; i++) {
+                personalDict[String(i).padStart(2, '0')] = 0;
+            }
+            
+            totalRecords.forEach(record => {
+                if (record.name === name) {
+                    const numbers = record.numbers.split(' ');
+                    numbers.forEach(num => {
+                        if (num in personalDict) {
+                            personalDict[num] += record.quantity;
+                        }
+                    });
+                }
+            });
+            
+            return personalDict;
+        }
+        
+        // 计算个人统计
+        function calculatePersonalStats() {
+            let stats = {};
+            
+            totalRecords.forEach(record => {
+                if (!stats[record.name]) {
+                    stats[record.name] = {
+                        recordCount: 0,
+                        totalQuantity: 0
+                    };
+                }
+                
+                stats[record.name].recordCount++;
+                
+                // 计算该记录的总数量
+                const numbersCount = record.numbers.split(' ').length;
+                stats[record.name].totalQuantity += numbersCount * record.quantity;
+            });
+            
+            return stats;
+        }
+        
+        // 显示号码
+        function displayNumbers(numberDict, title) {
+            // 将字典转换为数组并排序
+            let numbersArray = [];
+            for (let i = 1; i <= 49; i++) {
+                const num = String(i).padStart(2, '0');
+                numbersArray.push({
+                    number: num,
+                    count: numberDict[num] || 0
+                });
+            }
+            
+            // 按数量降序排序
+            numbersArray.sort((a, b) => b.count - a.count);
+            
+            // 清空显示区域
+            document.getElementById('numberColumn1').innerHTML = '';
+            document.getElementById('numberColumn2').innerHTML = '';
+            
+            // 显示号码（两列布局：第一列25个，第二列24个）
+            const column1 = document.getElementById('numberColumn1');
+            const column2 = document.getElementById('numberColumn2');
+            
+            for (let i = 0; i < numbersArray.length; i++) {
+                const item = numbersArray[i];
+                const animalName = getAnimalName(item.number);
+                
+                const numberItem = document.createElement('div');
+                numberItem.className = 'number-item';
+                numberItem.innerHTML = `
+                    <span class="number-code">${animalName}${item.number}</span>
+                    <span class="number-count">${item.count}</span>
+                `;
+                
+                // 前25个放入第一列，后24个放入第二列
+                if (i < 25) {
+                    column1.appendChild(numberItem);
+                } else {
+                    column2.appendChild(numberItem);
+                }
+            }
+            
+            // 更新标题
+            document.getElementById('displayTitle').textContent = title;
+        }
+        
+        // 显示总量统计
+        function displayTotalStats() {
+            const totalDict = calculateTotal();
+            let totalQuantity = 0;
+            
+            Object.values(totalDict).forEach(count => {
+                totalQuantity += count;
+            });
+            
+            let statsHTML = `总记录数: ${totalRecords.length} 条 | 总数量: ${totalQuantity}`;
+            
+            // 显示各用户统计
+            const statsDict = calculatePersonalStats();
+            Object.keys(statsDict).forEach(name => {
+                statsHTML += `<br>${name}: ${statsDict[name].recordCount}单 总计${statsDict[name].totalQuantity}`;
+            });
+            
+            document.getElementById('statsText').innerHTML = statsHTML;
+        }
+        
+        // 显示个人统计
+        function displayPersonalStats(name) {
+            const personalDict = calculatePersonalTotal(name);
+            let personalQuantity = 0;
+            
+            Object.values(personalDict).forEach(count => {
+                personalQuantity += count;
+            });
+            
+            // 计算个人记录数
+            let personalRecordsCount = 0;
+            totalRecords.forEach(record => {
+                if (record.name === name) {
+                    personalRecordsCount++;
+                }
+            });
+            
+            const statsHTML = `记录数: ${personalRecordsCount} 条 | 总数量: ${personalQuantity}`;
+            document.getElementById('statsText').textContent = statsHTML;
+        }
+        
+        // 页面切换函数
+        function toggleDisplay() {
+            const numbersArea = document.getElementById('numbersDisplayArea');
+            const settlementArea = document.getElementById('settlementEvaluationArea');
+            const switchBtn = document.getElementById('switchToSettlementBtn');
+            
+            if (numbersArea.style.display !== 'none') {
+                // 当前显示号码，切换到结算
+                numbersArea.style.display = 'none';
+                settlementArea.style.display = 'block';
+                switchBtn.textContent = '号码显示';
+            } else {
+                // 当前显示结算，切换到号码
+                numbersArea.style.display = 'block';
+                settlementArea.style.display = 'none';
+                switchBtn.textContent = '结算页面';
+            }
+        }
+        
+        // 显示用户管理模态框
+        function showUserManagement() {
+            document.getElementById('userManagementModal').style.display = 'flex';
+            renderUserTable();
+        }
+        
+        // 隐藏用户管理模态框
+        function hideUserManagement() {
+            document.getElementById('userManagementModal').style.display = 'none';
+        }
+        
+        // 渲染用户表格
+        function renderUserTable() {
+            const tbody = document.getElementById('userTableBody');
+            tbody.innerHTML = '';
+            
+            users.forEach((user, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td><button class="danger delete-user-btn" data-index="${index}">删除</button></td>
+                    <td><input type="text" class="user-name" value="${user.name}" data-index="${index}"></td>
+                    <td><input type="number" class="user-rate" value="${user.rate}" data-index="${index}"></td>
+                    <td><input type="number" class="user-rebate" value="${user.rebate}" data-index="${index}"></td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            // 添加删除按钮事件监听
+            document.querySelectorAll('.delete-user-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    if (confirm(`确定要删除用户 ${users[index].name} 吗？`)) {
+                        users.splice(index, 1);
+                        renderUserTable();
+                    }
+                });
+            });
+            
+            // 添加输入框变化监听
+            document.querySelectorAll('.user-name, .user-rate, .user-rebate').forEach(input => {
+                input.addEventListener('change', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    const field = this.classList[0].replace('user-', '');
+                    users[index][field] = this.value;
+                });
+            });
+        }
+        
+        // 添加新用户
+        function addNewUser() {
+            const name = document.getElementById('newUserName').value.trim();
+            const rate = parseInt(document.getElementById('newUserRate').value);
+            const rebate = parseInt(document.getElementById('newUserRebate').value);
+            
+            if (!name) {
+                alert('请输入用户名字！');
+                return;
+            }
+            
+            if (users.some(user => user.name === name)) {
+                alert('用户名字已存在！');
+                return;
+            }
+            
+            users.push({
+                name: name,
+                rate: isNaN(rate) ? 45 : rate,
+                rebate: isNaN(rebate) ? 3 : rebate
+            });
+            
+            // 清空输入框
+            document.getElementById('newUserName').value = '';
+            document.getElementById('newUserRate').value = 45;
+            document.getElementById('newUserRebate').value = 3;
+            
+            renderUserTable();
+            updateNameSelect();
+            
+            alert(`用户 ${name} 添加成功！`);
+        }
+        
+        // 保存用户设置
+        async function saveUsers() {
+            await saveUsersToStorage();
+            updateNameSelect();
+            hideUserManagement();
+            alert('用户设置已保存！');
+        }
+        
+        // 计算结算
+        function calculateSettlement() {
+            const winningNumber = document.getElementById('winningNumber').value.trim();
+            
+            if (!winningNumber) {
+                alert('请输入特码！');
+                return;
+            }
+            
+            const winningNumbers = winningNumber.split(' ').filter(num => num.trim() !== '');
+            
+            // 计算每个用户的数据
+            const settlementData = [];
+            let totalBet = 0;
+            let totalRebateAmount = 0;
+            let totalAfterRebate = 0;
+            let totalWinningAmount = 0;
+            let totalProfitLoss = 0;
+            
+            users.forEach(user => {
+                // 计算用户下注总计
+                const userDict = calculatePersonalTotal(user.name);
+                let userTotalQuantity = 0;
+                
+                Object.values(userDict).forEach(count => {
+                    userTotalQuantity += count;
+                });
+                
+                if (userTotalQuantity === 0) return; // 跳过没有下注的用户
+                
+                // 计算返水金额（百分之）
+                const rebateAmount = Math.round(userTotalQuantity * user.rebate / 100);
+                
+                // 计算扣返水后金额
+                const afterRebate = userTotalQuantity - rebateAmount;
+                
+                // 计算中奖金额
+                let winningQuantity = 0;
+                winningNumbers.forEach(num => {
+                    if (userDict[num]) {
+                        winningQuantity += userDict[num];
+                    }
+                });
+                
+                const winningAmount = winningQuantity;
+                
+                // 计算盈亏
+                const profitLoss = winningQuantity * user.rate - afterRebate;
+                
+                settlementData.push({
+                    name: user.name,
+                    rate: user.rate,
+                    rebate: user.rebate,
+                    totalBet: userTotalQuantity,
+                    rebateAmount: rebateAmount,
+                    afterRebate: afterRebate,
+                    winningAmount: winningAmount,
+                    profitLoss: profitLoss
+                });
+                
+                // 累加总计
+                totalBet += userTotalQuantity;
+                totalRebateAmount += rebateAmount;
+                totalAfterRebate += afterRebate;
+                totalWinningAmount += winningAmount;
+                totalProfitLoss += profitLoss;
+            });
+            
+            // 显示结算结果
+            showSettlementResult(winningNumber, settlementData, {
+                totalBet,
+                totalRebateAmount,
+                totalAfterRebate,
+                totalWinningAmount,
+                totalProfitLoss
+            });
+        }
+        
+        // 显示结算结果
+        function showSettlementResult(winningNumber, settlementData, totals) {
+            // 设置开奖号码显示
+            document.getElementById('settlementWinningNumbers').textContent = winningNumber;
+            
+            // 渲染表格
+            const tbody = document.getElementById('settlementTableBody');
+            tbody.innerHTML = '';
+            
+            settlementData.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>${item.totalBet}</td>
+                    <td>${item.rebateAmount}</td>
+                    <td>${item.afterRebate}</td>
+                    <td>${item.winningAmount}</td>
+                    <td class="${item.profitLoss >= 0 ? 'profit' : 'loss'}">${item.profitLoss >= 0 ? '+' : ''}${item.profitLoss}</td>
+                    <td><button class="copy-row-btn" data-name="${item.name}" data-total="${item.totalBet}" data-rebate="${item.rebateAmount}" data-after="${item.afterRebate}" data-winning="${item.winningAmount}" data-profit="${item.profitLoss}">复制</button></td>
+                `;
+                tbody.appendChild(row);
+            });
+            
+            // 渲染总计行
+            const tfoot = document.getElementById('settlementTableFooter');
+            tfoot.innerHTML = `
+                <tr>
+                    <td><strong>总计</strong></td>
+                    <td><strong>${totals.totalBet}</strong></td>
+                    <td><strong>${totals.totalRebateAmount}</strong></td>
+                    <td><strong>${totals.totalAfterRebate}</strong></td>
+                    <td><strong>${totals.totalWinningAmount}</strong></td>
+                    <td class="${totals.totalProfitLoss >= 0 ? 'profit' : 'loss'}"><strong>${totals.totalProfitLoss >= 0 ? '+' : ''}${totals.totalProfitLoss}</strong></td>
+                    <td></td>
+                </tr>
+            `;
+            
+            // 添加复制按钮事件监听
+            document.querySelectorAll('.copy-row-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const name = this.getAttribute('data-name');
+                    const total = this.getAttribute('data-total');
+                    const rebate = this.getAttribute('data-rebate');
+                    const after = this.getAttribute('data-after');
+                    const winning = this.getAttribute('data-winning');
+                    const profit = this.getAttribute('data-profit');
+                    
+                    const copyText = `${name}: 中${winning}-（总额${total}-${rebate}=${after}）=${profit}`;
+                    
+                    // 复制到剪贴板
+                    navigator.clipboard.writeText(copyText).then(() => {
+                        alert(`已复制: ${copyText}`);
+                    }).catch(err => {
+                        console.error('复制失败:', err);
+                        // 备用方法
+                        const textArea = document.createElement('textarea');
+                        textArea.value = copyText;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textArea);
+                        alert(`已复制: ${copyText}`);
+                    });
+                });
+            });
+            
+            // 显示模态框
+            document.getElementById('settlementResultModal').style.display = 'flex';
+        }
+        
+        // 隐藏结算结果
+        function hideSettlementResult() {
+            document.getElementById('settlementResultModal').style.display = 'none';
+        }
+        
+        // 评估系统
+        function evaluateSystem() {
+            const totalDict = calculateTotal();
+            let totalQuantity = 0;
+            
+            // 计算总数量
+            Object.values(totalDict).forEach(count => {
+                totalQuantity += count;
+            });
+            
+            // 找到最大数量的号码
+            let maxCount = 0;
+            Object.values(totalDict).forEach(count => {
+                if (count > maxCount) {
+                    maxCount = count;
+                }
+            });
+            
+            // 计算预计最大亏损/最小盈利
+            const minProfitOrMaxLoss = totalQuantity - maxCount * 47;
+            
+            // 显示评估结果
+            const evaluationResult = document.getElementById('evaluationResult');
+            evaluationResult.innerHTML = `
+                <div class="evaluation-result">
+                    <h3>系统评估</h3>
+                    <p>基本值: ${(totalQuantity / 45).toFixed(2)}</p>
+                    <p>预计${minProfitOrMaxLoss >= 0 ? '最小盈利' : '最大亏损'}: ${Math.abs(minProfitOrMaxLoss)}</p>
+                    <p>计算方式: 最大数量(${maxCount}) × 47 - 总数量(${totalQuantity})</p>
+                </div>
+            `;
+        }
+        
+        // 吃码计算
+        function calculateExcess() {
+            const threshold = parseInt(document.getElementById('thresholdInput').value);
+            
+            if (isNaN(threshold)) {
+                alert('请输入有效金额！');
+                return;
+            }
+            
+            const totalDict = calculateTotal();
+            const excessNumbers = [];
+            
+            // 找出超过阈值的号码
+            for (let i = 1; i <= 49; i++) {
+                const num = String(i).padStart(2, '0');
+                if (totalDict[num] > threshold) {
+                    excessNumbers.push({
+                        number: num,
+                        count: totalDict[num],
+                        excess: totalDict[num] - threshold
+                    });
+                }
+            }
+            
+            // 按超过数量降序排序
+            excessNumbers.sort((a, b) => b.excess - a.excess);
+            
+            // 显示结果
+            const excessResult = document.getElementById('excessResult');
+            excessResult.innerHTML = '';
+            
+            if (excessNumbers.length === 0) {
+                excessResult.innerHTML = '<p>没有超过的号码</p>';
+                return;
+            }
+            
+            // 创建结果容器
+            const resultDiv = document.createElement('div');
+            resultDiv.className = 'evaluation-result';
+            
+            // 添加标题
+            resultDiv.innerHTML = '<h3>吃码结果</h3>';
+            
+            // 按超出数量分组（相同数量的放在一起）
+            const groupedByExcess = {};
+            excessNumbers.forEach(item => {
+                if (!groupedByExcess[item.excess]) {
+                    groupedByExcess[item.excess] = [];
+                }
+                groupedByExcess[item.excess].push(item.number);
+            });
+            
+            // 显示分组结果
+            Object.keys(groupedByExcess).sort((a, b) => b - a).forEach(excessAmount => {
+                const numbers = groupedByExcess[excessAmount];
+                
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'excess-group';
+                itemDiv.innerHTML = `
+                    <div>
+                        <div class="excess-numbers">${numbers.join(' ')}</div>
+                    </div>
+                    <div class="excess-amount">各${excessAmount}</div>
+                `;
+                resultDiv.appendChild(itemDiv);
+            });
+            
+            // 生成复制文本
+            let copyText = '';
+            Object.keys(groupedByExcess).sort((a, b) => b - a).forEach(excessAmount => {
+                const numbers = groupedByExcess[excessAmount];
+                copyText += `${numbers.join(' ')}各${excessAmount}\n`;
+            });
+            
+            // 移除最后一个换行符
+            copyText = copyText.trim();
+            
+            // 添加复制按钮
+            const copyButton = document.createElement('button');
+            copyButton.className = 'success';
+            copyButton.style.marginTop = '10px';
+            copyButton.style.width = '100%';
+            copyButton.innerHTML = '复制吃码结果';
+            
+            // 添加复制功能
+            copyButton.addEventListener('click', function() {
+                // 复制到剪贴板
+                navigator.clipboard.writeText(copyText).then(() => {
+                    // 显示复制成功提示
+                    const originalText = copyButton.innerHTML;
+                    copyButton.innerHTML = '✓ 已复制';
+                    copyButton.classList.add('copy-success');
+                    copyButton.classList.add('copy-btn-pulse');
+                    
+                    // 2秒后恢复原状
+                    setTimeout(() => {
+                        copyButton.innerHTML = originalText;
+                        copyButton.classList.remove('copy-success');
+                        copyButton.classList.remove('copy-btn-pulse');
+                    }, 2000);
+                }).catch(err => {
+                    console.error('复制失败:', err);
+                    
+                    // 备用方法：创建临时textarea元素
+                    const textArea = document.createElement('textarea');
+                    textArea.value = copyText;
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    
+                    try {
+                        const successful = document.execCommand('copy');
+                        if (successful) {
+                            const originalText = copyButton.innerHTML;
+                            copyButton.innerHTML = '✓ 已复制到剪贴板';
+                            copyButton.classList.add('copy-success');
+                            copyButton.classList.add('copy-btn-pulse');
+                            
+                            setTimeout(() => {
+                                copyButton.innerHTML = originalText;
+                                copyButton.classList.remove('copy-success');
+                                copyButton.classList.remove('copy-btn-pulse');
+                            }, 2000);
+                        } else {
+                            alert('复制失败，请手动选择复制');
+                        }
+                    } catch (err) {
+                        alert('复制失败，请手动选择复制');
+                    }
+                    
+                    document.body.removeChild(textArea);
+                });
+            });
+            
+            resultDiv.appendChild(copyButton);
+            excessResult.appendChild(resultDiv);
+            
+            // 在控制台输出复制文本（调试用）
+            console.log('吃码复制文本：\n' + copyText);
+        }
+        
+        // 显示清除确认模态框
+        function showClearConfirm() {
+            document.getElementById('confirmClearModal').style.display = 'flex';
+        }
+        
+        // 隐藏清除确认模态框
+        function hideClearConfirm() {
+            document.getElementById('confirmClearModal').style.display = 'none';
+        }
+        
+        // 确认清除数据
+        function confirmClearData() {
+            // 记录清除时间
+            lastClearTime = new Date().getTime();
+            saveLastClearTime();
+            
+            totalRecords = [];
+            saveAllRecords();
+            hideClearConfirm();
+            refreshDisplay();
+            alert('已清除所有数据记录');
+        }
+        
+        // 显示记录
+        function showRecords() {
+            const recordsList = document.getElementById('recordsList');
+            const editForm = document.getElementById('editRecordForm');
+            recordsList.innerHTML = '';
+            editForm.style.display = 'none';
+            
+            // 获取上次清除后的记录
+            const recentRecords = lastClearTime ? 
+                totalRecords.filter(record => record.timestamp > lastClearTime) : 
+                [...totalRecords];
+            
+            if (recentRecords.length === 0) {
+                recordsList.innerHTML = '<p>暂无记录</p>';
+            } else {
+                recentRecords.forEach((record, index) => {
+                    const recordElement = document.createElement('div');
+                    recordElement.className = 'record-item';
+                    recordElement.innerHTML = `
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <strong>${record.name}</strong>：${record.inputText}
+                                <div style="font-size: 12px; color: #666;">
+                                    号码: ${record.numbers} | 数量: ${record.quantity > 0 ? '+' : ''}${record.quantity}
+                                </div>
+                            </div>
+                            <button class="edit-record-btn" data-index="${index}">修改</button>
+                        </div>
+                    `;
+                    recordsList.appendChild(recordElement);
+                });
+                
+                // 添加编辑按钮事件监听
+                document.querySelectorAll('.edit-record-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        const index = parseInt(this.getAttribute('data-index'));
+                        showEditForm(index);
+                    });
+                });
+            }
+            
+            document.getElementById('recordsModal').style.display = 'flex';
+        }
+        
+        // 显示编辑表单
+        function showEditForm(index) {
+            currentEditingRecordIndex = index;
+            const record = totalRecords[index];
+            
+            document.getElementById('editRecordContent').value = record.inputText;
+            document.getElementById('editRecordForm').style.display = 'block';
+            
+            // 滚动到表单
+            document.getElementById('editRecordForm').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // 取消编辑
+        function cancelEdit() {
+            document.getElementById('editRecordForm').style.display = 'none';
+            currentEditingRecordIndex = null;
+        }
+        
+        // 保存编辑
+        function saveEdit() {
+            if (currentEditingRecordIndex === null) return;
+            
+            const newInputText = document.getElementById('editRecordContent').value.trim();
+            if (!newInputText) {
+                alert('请修改！');
+                return;
+            }
+            
+            const record = totalRecords[currentEditingRecordIndex];
+            const name = record.name;
+            
+            // 删除原记录
+            totalRecords.splice(currentEditingRecordIndex, 1);
+            
+            // 处理新记录
+            const quantity = processSingleLine(newInputText, name);
+            
+            // 保存记录
+            saveAllRecords();
+            refreshDisplay();
+            
+            // 隐藏编辑表单
+            cancelEdit();
+            
+            // 重新显示记录列表
+            showRecords();
+            
+            alert(`记录修改成功！`);
+        }
+        
+        // 隐藏记录模态框
+        function hideRecords() {
+            document.getElementById('recordsModal').style.display = 'none';
+            currentEditingRecordIndex = null;
+        }
         
         // 页面加载时初始化
         document.addEventListener('DOMContentLoaded', initializeApp);
-        
-        // 原有的initializeControls函数
-        function initializeControls() {
-            // 原有的事件监听器代码...
-        }
     </script>
-    
-    <!-- 原有所有其他JavaScript代码都放在这里 -->
 </body>
 </html>
