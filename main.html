@@ -1,0 +1,533 @@
+<!-- main.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阿六智能统计系统</title>
+    <!-- 原有CSS样式保持不变 -->
+    <style>
+        /* 原有的所有CSS样式都保留在这里 */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            padding: 15px;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* ... 所有原有样式 ... */
+        
+        /* 新增：用户信息栏 */
+        .user-info-bar {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .user-info-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .user-details h3 {
+            margin: 0;
+            font-size: 16px;
+        }
+        
+        .user-details p {
+            margin: 2px 0 0 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+        
+        .logout-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        
+        /* 新增：使用时间统计 */
+        .usage-stats {
+            background: white;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-bottom: 15px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <!-- 用户信息栏 -->
+    <div class="user-info-bar">
+        <div class="user-info-left">
+            <div class="user-avatar">👤</div>
+            <div class="user-details">
+                <h3 id="userDisplayName">加载中...</h3>
+                <p id="userStatus">账户状态：验证中...</p>
+            </div>
+        </div>
+        <button class="logout-btn" onclick="logout()">退出登录</button>
+    </div>
+    
+    <!-- 使用时间统计 -->
+    <div class="usage-stats">
+        本次登录时间：<span id="currentLoginTime">--:--:--</span> | 
+        今日使用：<span id="todayUsage">0分钟</span> | 
+        总使用：<span id="totalUsage">0分钟</span>
+    </div>
+    
+    <!-- 原有系统容器 -->
+    <div id="appPage">
+        <h1>阿六智能统计</h1>
+        
+        <div class="container">
+            <!-- 浮动名字选择框 -->
+            <div class="sticky-name-selector">
+                <div class="input-group" style="margin-bottom: 0;">
+                    <label for="nameList">选择名字:</label>
+                    <select id="nameList">
+                        <option value="请选择">default</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label for="inputText">输入内容 (每行一个记录):</label>
+                <textarea id="inputText" placeholder="例如: 蛇各100&#10;或: 1.2.3+50&#10;多条记录用！，隔开"></textarea>
+            </div>
+            
+            <!-- 前四个按钮两列显示 -->
+            <div class="button-group">
+                <button id="submitBtn" class="success">提交</button>
+                <button id="clearDataBtn" class="danger">清除数据</button>
+                <button id="manageUsersBtn">管理用户</button>
+                <button id="showRecordsBtn">对单/修改</button>
+            </div>
+            
+            <!-- 结算页面按钮单独一行 -->
+            <button id="switchToSettlementBtn" class="single-button">结算页面</button>
+            
+            <div class="mode-buttons">
+                <button id="totalModeBtn" class="active">总量</button>
+                <button id="personalModeBtn">个人</button>
+            </div>
+        </div>
+        
+        <!-- 号码显示区域 -->
+        <div class="display-area" id="numbersDisplayArea">
+            <div class="stats-info" id="statsInfo">
+                <h3 id="displayTitle">总量显示 - 所有用户合计</h3>
+                <p id="statsText">总记录数: 0 条 | 总数量: 0</p>
+            </div>
+            
+            <div class="numbers-grid">
+                <div class="number-column" id="numberColumn1">
+                    <!-- 号码将通过JavaScript动态添加 -->
+                </div>
+                <div class="number-column" id="numberColumn2">
+                    <!-- 号码将通过JavaScript动态添加 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 结算和评估系统区域 (初始隐藏) -->
+        <div class="display-area" id="settlementEvaluationArea" style="display: none;">
+            <!-- 结算系统 -->
+            <div class="settlement-section">
+                <h2>结算系统</h2>
+                <div class="input-group">
+                    <label for="winningNumber">开奖号码:</label>
+                    <input type="text" id="winningNumber" placeholder="输入开奖号码">
+                </div>
+                
+                <div class="button-group">
+                    <button id="calculateSettlementBtn" class="success">开始结算</button>
+                </div>
+                
+                <div id="settlementResult">
+                    <!-- 结算结果将在这里显示 -->
+                </div>
+            </div>
+            
+            <!-- 评估系统 -->
+            <div class="evaluation-section">
+                <h2>评估系统</h2>
+                <div class="button-group">
+                    <button id="evaluateBtn" class="success">评估</button>
+                </div>
+                
+                <div id="evaluationResult">
+                    <!-- 评估结果将在这里显示 -->
+                </div>
+                
+                <div class="input-group">
+                    <label for="thresholdInput">吃码金额:</label>
+                    <input type="number" id="thresholdInput" placeholder="输入金额">
+                </div>
+                
+                <div class="button-group">
+                    <button id="calculateExcessBtn">吃码计算</button>
+                </div>
+                
+                <div id="excessResult">
+                    <!-- 吃码结果将在这里显示 -->
+                </div>
+            </div>
+        </div>
+        
+        <!-- 原有所有模态框保持不变 -->
+        <!-- ... 原有所有modal代码 ... -->
+    </div>
+
+    <!-- 引入Supabase客户端 -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    
+    <script>
+        // 全局变量
+        let currentMode = 'total';
+        let totalRecords = [];
+        let users = [];
+        let lastClearTime = null;
+        let currentEditingRecordIndex = null;
+        
+        // Supabase配置
+        const SUPABASE_URL = 'https://mzsuaimcgphlcfrenrwg.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im16c3VhaW1jZ3BobGNmcmVucndnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ3NTA4OTYsImV4cCI6MjA4MDMyNjg5Nn0.Hf1Q6JQ-KHfmh58BIjDgzBTS5DVIQxXbnIKXfjKPQg4';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        
+        // 当前用户信息
+        let currentUser = null;
+        
+        // 初始化函数
+        async function initializeApp() {
+            // 检查登录状态
+            const isAuthenticated = await checkAuth();
+            if (!isAuthenticated) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            // 加载用户数据
+            await loadCurrentUser();
+            
+            // 初始化原有系统
+            loadUsers();
+            loadAllRecords();
+            loadLastClearTime();
+            refreshDisplay();
+            initializeControls();
+            
+            // 开始使用时间统计
+            startUsageTimer();
+        }
+        
+        // 检查认证状态
+        async function checkAuth() {
+            const authToken = localStorage.getItem('auth_token');
+            const userPasswordHash = localStorage.getItem('user_password_hash');
+            
+            if (!authToken || !userPasswordHash) {
+                return false;
+            }
+            
+            try {
+                const [storedHash, deviceFingerprint] = atob(authToken).split(':');
+                
+                if (storedHash !== userPasswordHash) {
+                    return false;
+                }
+                
+                // 验证用户状态
+                const { data: user } = await supabase
+                    .from('users')
+                    .select('*')
+                    .eq('password_hash', userPasswordHash)
+                    .single();
+                
+                if (!user || user.status !== 'active') {
+                    return false;
+                }
+                
+                // 验证设备
+                const { data: devices } = await supabase
+                    .from('devices')
+                    .select('*')
+                    .eq('password_hash', userPasswordHash)
+                    .eq('device_fingerprint', deviceFingerprint);
+                
+                if (!devices || devices.length === 0) {
+                    return false;
+                }
+                
+                return true;
+                
+            } catch (error) {
+                console.error('认证检查失败：', error);
+                return false;
+            }
+        }
+        
+        // 加载当前用户信息
+        async function loadCurrentUser() {
+            const userPasswordHash = localStorage.getItem('user_password_hash');
+            
+            if (!userPasswordHash) {
+                logout();
+                return;
+            }
+            
+            const { data: user } = await supabase
+                .from('users')
+                .select('*')
+                .eq('password_hash', userPasswordHash)
+                .single();
+            
+            if (user) {
+                currentUser = user;
+                
+                // 更新用户界面显示
+                document.getElementById('userDisplayName').textContent = user.display_name || '用户';
+                
+                // 更新账户状态
+                let statusText = '账户状态：';
+                if (user.status === 'active') {
+                    if (user.expire_date) {
+                        const expireDate = new Date(user.expire_date);
+                        const now = new Date();
+                        const daysLeft = Math.ceil((expireDate - now) / (1000 * 60 * 60 * 24));
+                        statusText += `正常（剩余${daysLeft}天）`;
+                    } else {
+                        statusText += '正常（永久）';
+                    }
+                } else {
+                    statusText += user.status === 'inactive' ? '已停用' : '已过期';
+                }
+                
+                document.getElementById('userStatus').textContent = statusText;
+                
+                // 如果用户有备注，添加到标题
+                if (user.note) {
+                    document.querySelector('h1').textContent += ` - ${user.note}`;
+                }
+            }
+        }
+        
+        // 使用时间统计
+        let usageTimer = null;
+        let sessionStartTime = null;
+        
+        function startUsageTimer() {
+            sessionStartTime = parseInt(localStorage.getItem('login_time') || Date.now());
+            
+            // 更新当前会话时间
+            function updateTimer() {
+                const now = Date.now();
+                const sessionSeconds = Math.floor((now - sessionStartTime) / 1000);
+                
+                // 格式化时间显示
+                const hours = Math.floor(sessionSeconds / 3600);
+                const minutes = Math.floor((sessionSeconds % 3600) / 60);
+                const seconds = sessionSeconds % 60;
+                
+                document.getElementById('currentLoginTime').textContent = 
+                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+                
+                // 每分钟更新一次总使用时间
+                if (sessionSeconds % 60 === 0 && currentUser) {
+                    updateTotalUsageTime();
+                }
+            }
+            
+            // 初始更新
+            updateTimer();
+            
+            // 每秒更新一次
+            usageTimer = setInterval(updateTimer, 1000);
+        }
+        
+        // 更新总使用时间
+        async function updateTotalUsageTime() {
+            if (!currentUser) return;
+            
+            const sessionSeconds = Math.floor((Date.now() - sessionStartTime) / 1000);
+            const newTotalTime = (currentUser.total_login_time || 0) + 60; // 每分钟增加60秒
+            
+            // 更新数据库
+            await supabase
+                .from('users')
+                .update({ total_login_time: newTotalTime })
+                .eq('password_hash', currentUser.password_hash);
+            
+            // 更新显示
+            const totalMinutes = Math.floor(newTotalTime / 60);
+            const totalHours = Math.floor(totalMinutes / 60);
+            const remainingMinutes = totalMinutes % 60;
+            
+            document.getElementById('totalUsage').textContent = 
+                totalHours > 0 ? `${totalHours}小时${remainingMinutes}分钟` : `${totalMinutes}分钟`;
+        }
+        
+        // 退出登录
+        function logout() {
+            // 清除本地存储
+            localStorage.removeItem('auth_token');
+            localStorage.removeItem('user_password_hash');
+            localStorage.removeItem('user_display_name');
+            localStorage.removeItem('login_time');
+            
+            // 停止计时器
+            if (usageTimer) {
+                clearInterval(usageTimer);
+            }
+            
+            // 记录退出日志
+            if (currentUser) {
+                supabase
+                    .from('usage_logs')
+                    .insert({
+                        password_hash: currentUser.password_hash,
+                        action: 'logout',
+                        user_agent: navigator.userAgent
+                    });
+            }
+            
+            // 跳转到登录页
+            window.location.href = 'login.html';
+        }
+        
+        // 原有的所有函数都保留在这里
+        // 注意：需要修改所有使用localStorage的函数，改为使用Supabase
+        
+        // 修改loadUsers函数，从Supabase加载
+        async function loadUsers() {
+            // 从Supabase加载用户数据
+            const { data, error } = await supabase
+                .from('user_settings')
+                .select('*')
+                .eq('password_hash', localStorage.getItem('user_password_hash'));
+            
+            if (error) {
+                console.error('加载用户设置失败：', error);
+                users = [{ name: 'default', rate: 45, rebate: 3 }];
+            } else if (data && data.length > 0) {
+                users = data[0].settings || [{ name: 'default', rate: 45, rebate: 3 }];
+            } else {
+                users = [{ name: 'default', rate: 45, rebate: 3 }];
+            }
+            
+            updateNameSelect();
+        }
+        
+        // 修改saveUsersToStorage函数
+        async function saveUsersToStorage() {
+            if (!currentUser) return;
+            
+            await supabase
+                .from('user_settings')
+                .upsert({
+                    password_hash: currentUser.password_hash,
+                    settings: users,
+                    updated_at: new Date().toISOString()
+                });
+        }
+        
+        // 修改loadAllRecords函数
+        async function loadAllRecords() {
+            if (!currentUser) return;
+            
+            const { data, error } = await supabase
+                .from('user_records')
+                .select('*')
+                .eq('password_hash', currentUser.password_hash);
+            
+            if (error) {
+                console.error('加载记录失败：', error);
+                totalRecords = [];
+            } else if (data && data.length > 0) {
+                totalRecords = data[0].records || [];
+            } else {
+                totalRecords = [];
+            }
+        }
+        
+        // 修改saveAllRecords函数
+        async function saveAllRecords() {
+            if (!currentUser) return;
+            
+            await supabase
+                .from('user_records')
+                .upsert({
+                    password_hash: currentUser.password_hash,
+                    records: totalRecords,
+                    updated_at: new Date().toISOString()
+                });
+            
+            // 更新统计数据
+            const totalDict = calculateTotal();
+            let totalQuantity = 0;
+            
+            Object.values(totalDict).forEach(count => {
+                totalQuantity += count;
+            });
+            
+            await supabase
+                .from('user_stats')
+                .upsert({
+                    password_hash: currentUser.password_hash,
+                    total_records: totalRecords.length,
+                    total_quantity: totalQuantity,
+                    last_updated: new Date().toISOString()
+                });
+        }
+        
+        // 原有其他函数都保持不变...
+        // ... 原有所有统计系统的JavaScript代码 ...
+        
+        // 页面加载时初始化
+        document.addEventListener('DOMContentLoaded', initializeApp);
+        
+        // 原有的initializeControls函数
+        function initializeControls() {
+            // 原有的事件监听器代码...
+        }
+    </script>
+    
+    <!-- 原有所有其他JavaScript代码都放在这里 -->
+</body>
+</html>
