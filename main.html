@@ -198,81 +198,112 @@ refreshDisplay();
 let operationType=totalAdded>0?'增加':totalAdded<0?'减少':'无变化';
 let displayTotal=Math.abs(totalAdded);
 let nameInfo=selectedName!=='请选择'?`（名字：${selectedName}）`:'';
-alert(`操作完成！本次添加${recordCount}条记录${nameInfo}，总量${operationType}: ${displayTotal}`);
+alert(`成功添加${recordCount}条记录${nameInfo}，总量${operationType}: ${displayTotal}`);
 document.getElementById('inputText').value='';
 }
 
-// 处理单行记录
-function processSingleLine(inputStr,name){
-const originalInput=inputStr;
-inputStr=inputStr.replace(/各/g,'+');
-const records=inputStr.split(/[!！，,]/);
-let totalQuantity=0;
-records.forEach(record=>{
-if(record.trim()){
-const originalParts=originalInput.split(/[!！，,]/);
-const recordIndex=records.indexOf(record);
-const partOriginal=originalParts[recordIndex]?originalParts[recordIndex].trim():record.trim();
-totalQuantity+=processSingleRecord(record.trim(),name,partOriginal);
+// 处理单行数据 
+function processSingleLine(inputStr, name) {
+    const originalInput = inputStr;
+    
+    if (!validateInputFormat(inputStr)) {
+        return 0;
+    }
+    
+    inputStr = standardizeInputFormat(inputStr);
+    
+    const { numbersPart, quantity } = parseInputParts(inputStr);
+    
+    if (isNaN(quantity) || quantity <= 0) {
+        alert('请输入大于0的数字');
+        return 0;
+    }
+    return processNormalNumbers(numbersPart, quantity, name, originalInput);
 }
-});
-return totalQuantity;
+function validateInputFormat(inputStr) {
+    // 检查是否包含"各"或"+"
+    if (!inputStr.includes('各') && !inputStr.includes('+')) {
+        alert('格式错误！请使用"+"或"各"！');
+        return false;
+    }
+    return true;
 }
-
-// 处理单个记录
-function processSingleRecord(inputStr,name,originalInput){
-inputStr=convertKeywords(inputStr);
-let operation,quantity,numbersPart;
-const lastPlusIndex=inputStr.lastIndexOf('+');
-const lastMinusIndex=inputStr.lastIndexOf('-');
-if(lastPlusIndex>lastMinusIndex){
-operation='+';
-numbersPart=inputStr.substring(0,lastPlusIndex).trim();
-quantity=parseInt(inputStr.substring(lastPlusIndex+1));
-}else if(lastMinusIndex>lastPlusIndex){
-operation='-';
-numbersPart=inputStr.substring(0,lastMinusIndex).trim();
-quantity=parseInt(inputStr.substring(lastMinusIndex+1));
-}else{alert('格式错误！必须包含+或-号！');return 0;}
-if(isNaN(quantity)){alert('数量不是有效的数字！');return 0;}
-let numbers=numbersPart.split(/[\s.-/]+/).filter(num=>num.trim()!=='');
-let processedNumbers=[];
-numbers.forEach(numStr=>{
-numStr=numStr.trim();
-if(numStr.length===1&&/^\d$/.test(numStr)){
-const twoDigits=numStr.padStart(2,'0');
-if(isValidNumber(twoDigits))processedNumbers.push(twoDigits);
-}else if(numStr.length>2&&/^\d+$/.test(numStr)){
-for(let i=0;i<numStr.length;i+=2){
-if(i+2<=numStr.length){
-const twoDigits=numStr.substring(i,i+2);
-if(isValidNumber(twoDigits))processedNumbers.push(twoDigits);
+function standardizeInputFormat(inputStr) {
+    return inputStr.replace(/各/g, '+');
 }
+function parseInputParts(inputStr) {
+    const plusIndex = inputStr.lastIndexOf('+');
+    
+    if (plusIndex === -1) {
+        alert('格式错误！请使用"+"或"各"！');
+        return { numbersPart: '', quantity: 0 };
+    }
+    
+    const numbersPart = inputStr.substring(0, plusIndex).trim();
+    const quantity = parseInt(inputStr.substring(plusIndex + 1).trim());
+    
+    return { numbersPart, quantity };
 }
-}else{
-if(isValidNumber(numStr))processedNumbers.push(numStr);
-else if(numStr.length===2&&/^\d+$/.test(numStr)){
-const num=parseInt(numStr);
-if(num>=1&&num<=49)processedNumbers.push(numStr);
+function processNormalNumbers(numbersPart, quantity, name, originalInput) {
+    const convertedNumbers = convertKeywords(numbersPart);
+    const numberArray = parseNumberString(convertedNumbers);
+    
+    if (numberArray.length === 0) {
+        alert('输入格式有误！');
+        return 0;
+    }
+    saveRecord(name, originalInput, numberArray.join(' '), quantity, 'normal');
+    
+    return numberArray.length * quantity;
 }
+function parseNumberString(numberStr) {
+    const numbers = [];
+    const matches = numberStr.match(/\d+/g);
+    
+    if (matches) {
+        matches.forEach(numStr => {
+            if (numStr.length === 1) {
+                // 单个数字
+                const twoDigits = numStr.padStart(2, '0');
+                if (isValidNumber(twoDigits)) {
+                    numbers.push(twoDigits);
+                }
+            } else if (numStr.length === 2) {
+                // 两位数
+                if (isValidNumber(numStr)) {
+                    numbers.push(numStr);
+                }
+            } else {
+                for (let i = 0; i < numStr.length; i += 2) {
+                    if (i + 2 <= numStr.length) {
+                        let twoDigits = numStr.substring(i, i + 2);
+                        if (twoDigits.length === 1) {
+                            twoDigits = twoDigits.padStart(2, '0');
+                        }
+                        if (isValidNumber(twoDigits)) {
+                            numbers.push(twoDigits);
+                        }
+                    }
+                }
+            }
+        });
+    }
+    
+    return numbers;
 }
-});
-if(processedNumbers.length===0){alert('没有找到有效的号码！');return 0;}
-if(operation==='-')quantity=-quantity;
-saveRecord(name,originalInput,processedNumbers.join(' '),quantity);
-return processedNumbers.length*quantity;
-}
-
-// 转换关键字
-function convertKeywords(inputStr){
-const sortedKeys=Object.keys(keywordMapping).sort((a,b)=>b.length-a.length);
-sortedKeys.forEach(keyword=>{
-const regex=new RegExp(keyword,'g');
-inputStr=inputStr.replace(regex,keywordMapping[keyword]);
-});
-return inputStr;
-}
-
+    function convertKeywords(inputStr) {
+        const sortedKeys = Object.keys(keywordMapping).sort((a, b) => b.length - a.length);
+        
+        let result = inputStr;
+        sortedKeys.forEach(keyword => {
+            const regex = new RegExp(keyword, 'g');
+            if (regex.test(result)) {
+                result = result.replace(regex, keywordMapping[keyword]);
+            }
+        });
+        
+        return result;
+    }
 // 验证号码有效性
 function isValidNumber(numStr){
 if(numStr.length!==2||!/^\d+$/.test(numStr))return false;
