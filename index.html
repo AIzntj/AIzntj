@@ -1,2 +1,668 @@
-<!-- login.html -->
-<!DOCTYPE html><html lang=zh-CN><head><meta charset=UTF-8><meta name=viewport content="width=device-width,initial-scale=1"><title>阿六智能统计 - 登录</title><style>*{box-sizing:border-box;margin:0;padding:0;font-family:"PingFang SC","Microsoft YaHei",sans-serif}body{background-color:#f5f5f5;min-height:100vh;display:flex;justify-content:center;align-items:center;padding:15px;color:#333}.login-container{background-color:#fff;border-radius:10px;box-shadow:0 2px 10px rgba(0,0,0,.1);width:100%;max-width:450px;overflow:hidden}.login-header{background:linear-gradient(135deg,#2c3e50 0%,#3498db 100%);color:#fff;padding:20px;text-align:center}.login-header h1{font-size:1.5rem;margin-bottom:5px}.login-header p{opacity:.9;font-size:14px}.login-content{padding:20px}.input-group{margin-bottom:20px}.input-group label{display:block;margin-bottom:5px;font-weight:bold;color:#2c3e50;font-size:14px}.input-group input{width:100%;padding:10px;border:1px solid #ddd;border-radius:5px;font-size:16px;transition:border .3s}.input-group input:focus{border-color:#3498db;outline:0}.login-btn{width:100%;padding:10px;background-color:#2ecc71;color:#fff;border:0;border-radius:5px;font-size:16px;cursor:pointer;transition:background-color .3s;font-weight:bold}.login-btn:hover{background-color:#27ae60}.device-info{background-color:#f8f9fa;border-radius:5px;padding:15px;margin:15px 0;border-left:4px solid #3498db}.device-info h4{color:#2c3e50;margin-bottom:10px;font-size:14px}.device-info p{color:#666;font-size:13px;margin-bottom:5px}.status-info{background-color:#e8f4fc;border-radius:5px;padding:10px;margin-top:15px;font-size:14px;text-align:center}.error-message{background-color:#ffebee;color:#c62828;padding:10px;border-radius:5px;margin-top:15px;display:none;font-size:14px}.user-note{font-size:12px;color:#666;margin-top:15px;text-align:center;padding:8px;background-color:#f8f9fa;border-radius:5px}.wechat-info{background:linear-gradient(135deg,#09bb07 0%,#09bb07 100%);color:#fff;padding:10px;border-radius:5px;margin-top:15px;text-align:center;font-weight:bold}@media (max-width:768px){body{padding:10px;align-items:flex-start;padding-top:30px}.login-container{max-width:100%}.login-header{padding:15px}.login-header h1{font-size:1.3rem}.login-header p{font-size:13px}.login-content{padding:15px}.input-group{margin-bottom:15px}.input-group label{font-size:13px}.input-group input{padding:8px;font-size:15px}.login-btn{padding:12px;font-size:15px}.device-info{padding:12px;margin:12px 0}.device-info h4{font-size:13px}.device-info p{font-size:12px}.status-info{font-size:13px;padding:8px}.error-message{font-size:13px;padding:8px}.user-note{font-size:11px;padding:6px}.wechat-info{padding:8px;font-size:14px}}@media (max-width:480px){.login-header h1{font-size:1.2rem}.login-header p{font-size:12px}.input-group input{padding:8px;font-size:14px}.login-btn{padding:10px;font-size:14px}.device-info{padding:10px}.device-info h4{font-size:12px}.device-info p{font-size:11px}.status-info{font-size:12px}.error-message{font-size:12px}.user-note{font-size:10px}.wechat-info{font-size:12px}}</style></head><body><div class=login-container><div class=login-header><h1>阿六智能统计</h1><p>请输入密码登录系统</p></div><div class=login-content><div class=input-group><label>登录密码：</label><input type=password id=passwordInput placeholder="输入您的专属密码" autocomplete=off></div><div class=device-info><h4>📱 当前设备信息</h4><p id=devicePlatform>系统：正在检测...</p><p id=deviceBrowser>浏览器：正在检测...</p></div><button class=login-btn onclick=a()>🚀 登录系统</button><div class=wechat-info>密码请联系阿六微信 aizntj</div><div class=status-info id=accountStatus></div><div class=error-message id=errorMessage></div><div class=user-note id=userNote></div></div></div><script src=https://unpkg.com/@supabase/supabase-js@2></script><script>const b='https://mzsuaimcgphlcfrenrwg.supabase.co',c='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im16c3VhaW1jZ3BobGNmcmVucndnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ3NTA4OTYsImV4cCI6MjA4MDMyNjg5Nn0.Hf1Q6JQ-KHfmh58BIjDgzBTS5DVIQxXbnIKXfjKPQg4';let d=window.supabase.createClient(b,c);function e(){let a={userAgent:navigator.userAgent,language:navigator.language,platform:navigator.platform,screen:`${window.screen.width}x${window.screen.height}`,timezone:new Date().getTimezoneOffset(),hardwareConcurrency:navigator.hardwareConcurrency||'unknown',deviceMemory:navigator.deviceMemory||'unknown',cookiesEnabled:navigator.cookieEnabled,doNotTrack:navigator.doNotTrack||'unknown'},b=JSON.stringify(a),c=0;for(let d=0;d<b.length;d++){let a=b.charCodeAt(d);c=((c<<5)-c)+a,c=c&c}return c.toString()}function f(){let a=navigator.userAgent,b=navigator.platform,c="未知浏览器";a.includes("Chrome")&&!a.includes("Edg")?c="Chrome":a.includes("Firefox")?c="Firefox":a.includes("Safari")&&!a.includes("Chrome")?c="Safari":a.includes("Edg")&&(c="Edge"),a.includes("Mac")?b="Mac":a.includes("Win")?b="Windows":a.includes("Linux")?b="Linux":a.includes("Android")?b="Android":(a.includes("iPhone")||a.includes("iPad"))&&(b="iOS"),document.getElementById('devicePlatform').textContent=`系统：${b}`,document.getElementById('deviceBrowser').textContent=`浏览器：${c}`}async function a(){let a=document.getElementById('passwordInput').value.trim(),b=e();if(!a)return void g('请输入密码');let h=document.querySelector('.login-btn'),i=h.textContent;h.textContent='正在验证...',h.disabled=!0;try{let{data:j,error:k}=await d.from('users').select('*').eq('password_hash',btoa(a)).single();if(k||!j)return void g('密码错误或账户不存在');if('active'!==j.status)return void g(`账户状态：${'inactive'===j.status?'已停用':'已过期'}`);if(j.expire_date){let a=new Date(j.expire_date),b=new Date;if(a<b){await d.from('users').update({status:'expired'}).eq('password_hash',btoa(a));return void g('账户已过期，请联系管理员续期')}let c=Math.ceil((a-b)/(1e3*60*60*24));l(`账户有效期剩余：${c}天`)}else l('账户状态：永久有效');let{data:m,error:n}=await d.from('devices').select('*').eq('password_hash',btoa(a));if(!n){if(m.length>=j.max_devices){let d=m.find(d=>d.device_fingerprint===b);if(!d)return void g(`设备数量超限（最多${j.max_devices}台），请联系管理员`)}let o=m.find(d=>d.device_fingerprint===b);o||await d.from('devices').insert({password_hash:btoa(a),device_fingerprint:b,device_name:navigator.platform})}await d.from('users').update({last_login:new Date().toISOString(),login_count:(j.login_count||0)+1}).eq('password_hash',btoa(a));await d.from('usage_logs').insert({password_hash:btoa(a),action:'login',user_agent:navigator.userAgent});localStorage.setItem('auth_token',btoa(`${btoa(a)}:${b}`)),localStorage.setItem('user_password_hash',btoa(a)),localStorage.setItem('user_display_name',j.display_name||'用户'),localStorage.setItem('login_time',Date.now().toString()),j.note&&(document.getElementById('userNote').textContent=`用户备注：${j.note}`),setTimeout(()=>{window.location.href='main.html'},500)}catch(a){console.error('登录错误：',a),g('登录失败，请重试')}finally{h.textContent=i,h.disabled=!1}}function g(a){let b=document.getElementById('errorMessage');b.textContent=a,b.style.display='block',setTimeout(()=>{b.style.display='none'},5e3)}function l(a){document.getElementById('accountStatus').innerHTML=`<p>✅ ${a}</p>`}async function m(){let a=localStorage.getItem('auth_token');if(a)try{let[b,c]=atob(a).split(':'),{data:d}=await window.supabase.createClient(b,'').from('users').select('*').eq('password_hash',b).single();if(d&&'active'===d.status){let{data:a}=await window.supabase.createClient(b,'').from('devices').select('*').eq('password_hash',b).eq('device_fingerprint',c);a&&a.length>0&&(l('检测到已登录状态，正在跳转...'),setTimeout(()=>{window.location.href='main.html'},1500))}}catch(a){localStorage.removeItem('auth_token'),localStorage.removeItem('user_password_hash')}}window.addEventListener('load',function(){f(),m(),document.getElementById('passwordInput').addEventListener('keypress',function(a){'Enter'===a.key&&login()})});</script></body></html>
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>阿六智能统计 - 登录</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
+        }
+        
+        body {
+            background-color: #f5f5f5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            color: #333;
+        }
+        
+        .login-container {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 450px;
+            overflow: hidden;
+        }
+        
+        .login-header {
+            background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .login-header h1 {
+            font-size: 1.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .login-header p {
+            opacity: 0.9;
+            font-size: 14px;
+        }
+
+        .login-content {
+            padding: 20px;
+        }        
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+            font-size: 14px;
+        }
+        
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border 0.3s;
+        }
+        
+        .input-group input:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-weight: bold;
+        }
+        
+        .login-btn:hover {
+            background-color: #27ae60;
+        }
+        
+        .device-info {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #3498db;
+        }
+        
+        .device-info h4 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .device-info p {
+            color: #666;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+        
+        .status-info {
+            background-color: #e8f4fc;
+            border-radius: 5px;
+            padding: 10px;
+            margin-top: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .error-message {
+            background-color: #ffebee;
+            color: #c62828;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            display: none;
+            font-size: 14px;
+        }
+        
+        .user-note {
+            font-size: 12px;
+            color: #666;
+            margin-top: 15px;
+            text-align: center;
+            padding: 8px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+        }
+        
+        .wechat-info {
+            background: linear-gradient(135deg, #09bb07 0%, #09bb07 100%);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 15px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        /* 手机屏幕适配 */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+                padding-top: 30px;
+            }
+            
+            .login-container {
+                max-width: 100%;
+                margin: 0 auto;
+            }
+            
+            .login-header {
+                padding: 15px;
+            }
+            
+            .login-header h1 {
+                font-size: 1.3rem;
+            }
+            
+            .login-header p {
+                font-size: 13px;
+            }
+            
+            .login-content {
+                padding: 15px;
+            }
+            
+            .input-group {
+                margin-bottom: 15px;
+            }
+            
+            .input-group label {
+                font-size: 13px;
+            }
+            
+            .input-group input {
+                padding: 8px;
+                font-size: 15px;
+            }
+            
+            .login-btn {
+                padding: 12px;
+                font-size: 15px;
+            }
+            
+            .device-info {
+                padding: 12px;
+                margin-top: 12px;
+                margin-bottom: 12px;
+            }
+            
+            .device-info h4 {
+                font-size: 13px;
+            }
+            
+            .device-info p {
+                font-size: 12px;
+            }
+            
+            .status-info {
+                font-size: 13px;
+                padding: 8px;
+            }
+            
+            .error-message {
+                font-size: 13px;
+                padding: 8px;
+            }
+            
+            .user-note {
+                font-size: 11px;
+                padding: 6px;
+            }
+            
+            .wechat-info {
+                padding: 8px;
+                font-size: 14px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .login-header h1 {
+                font-size: 1.2rem;
+            }
+            
+            .login-header p {
+                font-size: 12px;
+            }
+            
+            .input-group input {
+                padding: 8px;
+                font-size: 14px;
+            }
+            
+            .login-btn {
+                padding: 10px;
+                font-size: 14px;
+            }
+            
+            .device-info {
+                padding: 10px;
+            }
+            
+            .device-info h4 {
+                font-size: 12px;
+            }
+            
+            .device-info p {
+                font-size: 11px;
+            }
+            
+            .status-info {
+                font-size: 12px;
+            }
+            
+            .error-message {
+                font-size: 12px;
+            }
+            
+            .user-note {
+                font-size: 10px;
+            }
+            
+            .wechat-info {
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h1>阿六智能统计</h1>
+            <p>请输入密码登录系统</p>
+        </div>
+        
+        <div class="login-content">
+            <div class="input-group">
+                <label>登录密码：</label>
+                <input type="password" id="passwordInput" placeholder="输入您的专属密码" autocomplete="off">
+            </div>
+            
+            <div class="device-info">
+                <h4>📱 当前设备信息</h4>
+                <p id="devicePlatform">系统：正在检测...</p>
+                <p id="deviceBrowser">浏览器：正在检测...</p>
+            </div>
+            
+            <button class="login-btn" onclick="window.login()">🚀 登录系统</button>
+            
+            <div class="wechat-info">
+                密码请联系阿六微信 aizntj
+            </div>
+            
+            <div class="status-info" id="accountStatus">
+                <!-- 账户状态信息 -->
+            </div>
+            
+            <div class="error-message" id="errorMessage">
+                <!-- 错误信息显示 -->
+            </div>
+            
+            <div class="user-note" id="userNote">
+                <!-- 用户备注信息 -->
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入Supabase客户端 -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+    
+    <script>
+        // 使用立即执行函数避免全局变量冲突
+        (function() {
+            console.log('登录页面脚本开始执行');
+            
+            // 初始化Supabase客户端
+            const SUPABASE_URL = 'https://mzsuaimcgphlcfrenrwg.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im16c3VhaW1jZ3BobGNmcmVucndnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ3NTA4OTYsImV4cCI6MjA4MDMyNjg5Nn0.Hf1Q6JQ-KHfmh58BIjDgzBTS5DVIQxXbnIKXfjKPQg4';
+            
+            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            
+            // 生成设备指纹
+            function generateDeviceFingerprint() {
+                const data = {
+                    userAgent: navigator.userAgent,
+                    language: navigator.language,
+                    platform: navigator.platform,
+                    screen: `${window.screen.width}x${window.screen.height}`,
+                    timezone: new Date().getTimezoneOffset(),
+                    hardwareConcurrency: navigator.hardwareConcurrency || 'unknown',
+                    deviceMemory: navigator.deviceMemory || 'unknown',
+                    cookiesEnabled: navigator.cookieEnabled,
+                    doNotTrack: navigator.doNotTrack || 'unknown'
+                };
+                
+                // 生成简单的哈希值作为设备指纹
+                const str = JSON.stringify(data);
+                let hash = 0;
+                for (let i = 0; i < str.length; i++) {
+                    const char = str.charCodeAt(i);
+                    hash = ((hash << 5) - hash) + char;
+                    hash = hash & hash;
+                }
+                return hash.toString();
+            }
+            
+            // 检测设备信息
+            function detectDeviceInfo() {
+                const ua = navigator.userAgent;
+                let devicePlatform = navigator.platform;
+                let browser = "未知浏览器";
+                
+                // 检测浏览器
+                if (ua.includes("Chrome") && !ua.includes("Edg")) {
+                    browser = "Chrome";
+                } else if (ua.includes("Firefox")) {
+                    browser = "Firefox";
+                } else if (ua.includes("Safari") && !ua.includes("Chrome")) {
+                    browser = "Safari";
+                } else if (ua.includes("Edg")) {
+                    browser = "Edge";
+                }
+                
+                // 检测平台
+                if (ua.includes("Mac")) {
+                    devicePlatform = "Mac";
+                } else if (ua.includes("Win")) {
+                    devicePlatform = "Windows";
+                } else if (ua.includes("Linux")) {
+                    devicePlatform = "Linux";
+                } else if (ua.includes("Android")) {
+                    devicePlatform = "Android";
+                } else if (ua.includes("iPhone") || ua.includes("iPad")) {
+                    devicePlatform = "iOS";
+                }
+                
+                document.getElementById('devicePlatform').textContent = `系统：${devicePlatform}`;
+                document.getElementById('deviceBrowser').textContent = `浏览器：${browser}`;
+            }
+            
+            // 登录函数
+            window.login = async function() {
+                const password = document.getElementById('passwordInput').value.trim();
+                const deviceFingerprint = generateDeviceFingerprint();
+                
+                console.log('开始登录，密码:', password);
+                
+                if (!password) {
+                    showError('请输入密码');
+                    return;
+                }
+                
+                // 显示加载状态
+                const loginBtn = document.querySelector('.login-btn');
+                const originalText = loginBtn.textContent;
+                loginBtn.textContent = '正在验证...';
+                loginBtn.disabled = true;
+                
+                try {
+                    // 1. 验证密码 - 使用正确的表名和字段
+                    const passwordHash = btoa(password);
+                    console.log('密码哈希:', passwordHash);
+                    
+                    const { data: user, error: userError } = await supabase
+                        .from('users')
+                        .select('*')
+                        .eq('password_hash', passwordHash)
+                        .maybeSingle();  // 使用 maybeSingle 而不是 single 避免错误
+                    
+                    console.log('查询结果:', user, userError);
+                    
+                    if (userError) {
+                        console.error('查询错误:', userError);
+                        showError('数据库查询失败');
+                        return;
+                    }
+                    
+                    if (!user) {
+                        showError('密码错误或账户不存在');
+                        return;
+                    }
+                    
+                    console.log('找到用户:', user);
+                    
+                    // 2. 检查账户状态
+                    if (user.status !== 'active') {
+                        showError(`账户状态：${user.status === 'inactive' ? '已停用' : '已过期'}`);
+                        return;
+                    }
+                    
+                    // 3. 检查有效期
+                    if (user.expire_date) {
+                        const expireDate = new Date(user.expire_date);
+                        const now = new Date();
+                        
+                        console.log('有效期:', expireDate, '当前时间:', now);
+                        
+                        if (expireDate < now) {
+                            // 更新账户状态为过期
+                            await supabase
+                                .from('users')
+                                .update({ status: 'expired' })
+                                .eq('id', user.id);
+                            
+                            showError('账户已过期，请联系管理员续期');
+                            return;
+                        }
+                        
+                        // 显示剩余天数
+                        const daysLeft = Math.ceil((expireDate - now) / (1000 * 60 * 60 * 24));
+                        updateAccountStatus(`账户有效期剩余：${daysLeft}天`);
+                    } else {
+                        updateAccountStatus('账户状态：永久有效');
+                    }
+                    
+                    // 4. 检查设备绑定 - 使用正确的表名 user_devices
+                    const { data: devices, error: devicesError } = await supabase
+                        .from('user_devices')
+                        .select('*')
+                        .eq('user_id', user.id);
+                    
+                    console.log('设备查询结果:', devices, devicesError);
+                    
+                    if (!devicesError) {
+                        if (devices && devices.length >= (user.max_devices || 3)) {
+                            // 已有设备，检查是否匹配
+                            const deviceMatch = devices.find(d => d.device_fingerprint === deviceFingerprint);
+                            if (!deviceMatch) {
+                                showError(`设备数量超限（最多${user.max_devices || 3}台），请联系管理员`);
+                                return;
+                            }
+                        }
+                        
+                        // 记录新设备（如果不存在）
+                        const existingDevice = devices ? devices.find(d => d.device_fingerprint === deviceFingerprint) : null;
+                        if (!existingDevice) {
+                            console.log('添加新设备:', deviceFingerprint);
+                            const { error: insertError } = await supabase
+                                .from('user_devices')
+                                .insert({
+                                    user_id: user.id,
+                                    device_fingerprint: deviceFingerprint,
+                                    device_name: navigator.platform,
+                                    created_at: new Date().toISOString(),
+                                    last_active: new Date().toISOString()
+                                });
+                            
+                            if (insertError) {
+                                console.error('设备记录失败：', insertError);
+                            }
+                        } else {
+                            // 更新设备最后活跃时间
+                            await supabase
+                                .from('user_devices')
+                                .update({ last_active: new Date().toISOString() })
+                                .eq('id', existingDevice.id);
+                        }
+                    }
+                    
+                    // 5. 更新用户信息
+                    const { error: updateError } = await supabase
+                        .from('users')
+                        .update({
+                            last_login: new Date().toISOString(),
+                            login_count: (user.login_count || 0) + 1
+                        })
+                        .eq('id', user.id);
+                    
+                    if (updateError) {
+                        console.error('更新用户信息失败：', updateError);
+                    }
+                    
+                    // 6. 记录登录日志 - 使用正确的表名 usage_logs
+                    const { error: logError } = await supabase
+                        .from('usage_logs')
+                        .insert({
+                            user_id: user.id,
+                            action: 'login',
+                            user_agent: navigator.userAgent,
+                            ip_address: '',
+                            created_at: new Date().toISOString()
+                        });
+                    
+                    if (logError) {
+                        console.error('记录日志失败：', logError);
+                    }
+                    
+                    // 7. 保存登录状态到本地存储
+                    localStorage.setItem('auth_token', btoa(`${user.password_hash}:${deviceFingerprint}`));
+                    localStorage.setItem('user_password_hash', user.password_hash);
+                    localStorage.setItem('user_display_name', user.display_name || '用户');
+                    localStorage.setItem('login_time', Date.now().toString());
+                    localStorage.setItem('user_id', user.id.toString());
+                    // 8. 显示用户信息
+                    if (user.note) {
+                        document.getElementById('userNote').textContent = `用户备注：${user.note}`;
+                    }
+                    
+                    // 9. 跳转到主系统
+                    updateAccountStatus('登录成功，正在跳转...');
+                    console.log('登录成功，准备跳转到 main.html');
+                    
+                    // 强制跳转
+                    setTimeout(() => {
+                        window.location.href = 'main.html';
+                    }, 1000);
+                    
+                } catch (error) {
+                    console.error('登录错误：', error);
+                    showError('登录失败，请重试：' + error.message);
+                } finally {
+                    // 恢复按钮状态
+                    loginBtn.textContent = originalText;
+                    loginBtn.disabled = false;
+                }
+            };
+            
+            // 显示错误信息
+            function showError(message) {
+                console.error('错误:', message);
+                const errorDiv = document.getElementById('errorMessage');
+                errorDiv.textContent = message;
+                errorDiv.style.display = 'block';
+                
+                // 5秒后自动隐藏
+                setTimeout(() => {
+                    errorDiv.style.display = 'none';
+                }, 5000);
+            }
+            
+            // 更新账户状态显示
+            function updateAccountStatus(message) {
+                document.getElementById('accountStatus').innerHTML = `<p>✅ ${message}</p>`;
+            }
+            
+            // 检查是否有已保存的登录状态
+            async function checkExistingSession() {
+                const authToken = localStorage.getItem('auth_token');
+                
+                if (authToken) {
+                    try {
+                        const authData = JSON.parse(atob(authToken));
+                        console.log('检测到已保存的登录状态:', authData);
+                        
+                        // 验证用户
+                        const { data: user } = await supabase
+                            .from('users')
+                            .select('*')
+                            .eq('id', authData.userId)
+                            .maybeSingle();
+                        
+                        if (user && user.status === 'active') {
+                            // 检查有效期
+                            if (user.expire_date) {
+                                const expireDate = new Date(user.expire_date);
+                                const now = new Date();
+                                if (expireDate < now) {
+                                    localStorage.clear();
+                                    return;
+                                }
+                            }
+                            
+                            // 检查设备
+                            const { data: devices } = await supabase
+                                .from('user_devices')
+                                .select('*')
+                                .eq('user_id', user.id)
+                                .eq('device_fingerprint', authData.deviceFingerprint);
+                            
+                            if (devices && devices.length > 0) {
+                                // 自动跳转到主系统
+                                updateAccountStatus('检测到已登录状态，正在跳转...');
+                                console.log('自动跳转到 main.html');
+                                setTimeout(() => {
+                                    window.location.href = 'main.html';
+                                }, 1500);
+                            } else {
+                                localStorage.clear();
+                            }
+                        } else {
+                            localStorage.clear();
+                        }
+                    } catch (error) {
+                        console.error('检查登录状态失败：', error);
+                        localStorage.clear();
+                    }
+                }
+            }
+            
+            // 页面加载时执行
+            window.addEventListener('load', function() {
+                console.log('页面加载完成');
+                detectDeviceInfo();
+                checkExistingSession();
+                
+                // 回车键登录
+                document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        window.login();
+                    }
+                });
+            });
+            
+        })();
+    </script>
+</body>
+</html>

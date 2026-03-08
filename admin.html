@@ -10,15 +10,13 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
         }
         
         body {
+            font-family: "PingFang SC", "Microsoft YaHei", sans-serif;
             background: #f5f5f5;
-            color: #333;
         }
         
-        /* 管理后台样式 */
         .admin-container {
             display: flex;
             min-height: 100vh;
@@ -26,20 +24,14 @@
         
         .sidebar {
             width: 250px;
-            background: linear-gradient(180deg, #2c3e50 0%, #1a2530 100%);
+            background: #2c3e50;
             color: white;
-            padding: 20px 0;
         }
         
         .sidebar-header {
             padding: 20px;
             text-align: center;
             border-bottom: 1px solid #34495e;
-        }
-        
-        .sidebar-header h2 {
-            margin: 0;
-            font-size: 20px;
         }
         
         .sidebar-menu {
@@ -50,16 +42,15 @@
         .sidebar-menu li {
             padding: 15px 20px;
             cursor: pointer;
-            transition: all 0.3s;
             border-left: 4px solid transparent;
         }
         
         .sidebar-menu li:hover {
-            background: rgba(255, 255, 255, 0.1);
+            background: #34495e;
         }
         
         .sidebar-menu li.active {
-            background: rgba(52, 152, 219, 0.2);
+            background: #34495e;
             border-left-color: #3498db;
         }
         
@@ -69,34 +60,50 @@
             overflow-y: auto;
         }
         
-        .content-header {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
         .content-section {
             background: white;
             padding: 20px;
-            border-radius: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
         .section-title {
-            color: #2c3e50;
             margin-bottom: 20px;
             padding-bottom: 10px;
-            border-bottom: 2px solid #f0f0f0;
+            border-bottom: 2px solid #eee;
+            color: #2c3e50;
         }
         
-        /* 表格样式 */
+        .stats-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card h3 {
+            margin: 0 0 10px 0;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .stat-card .stat-value {
+            font-size: 32px;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 15px;
         }
         
         .data-table th,
@@ -109,147 +116,135 @@
         .data-table th {
             background: #f8f9fa;
             font-weight: bold;
-            color: #2c3e50;
         }
         
         .data-table tr:hover {
             background: #f8f9fa;
         }
         
-        /* 表单样式 */
+        .btn {
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 0 5px;
+        }
+        
+        .btn-primary { background: #3498db; color: white; }
+        .btn-success { background: #2ecc71; color: white; }
+        .btn-danger { background: #e74c3c; color: white; }
+        .btn-warning { background: #f39c12; color: white; }
+        .btn-info { background: #00bcd4; color: white; }
+        .btn-sm { padding: 4px 8px; font-size: 12px; }
+        
+        .btn:hover { opacity: 0.8; }
+        
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .form-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             font-weight: bold;
-            color: #2c3e50;
         }
         
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 10px;
+            padding: 8px;
             border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 14px;
+            border-radius: 4px;
         }
         
         .form-row {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
+            margin-bottom: 15px;
         }
         
-        /* 按钮样式 */
-        .btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s;
-        }
-        
-        .btn-primary {
-            background: #3498db;
-            color: white;
-        }
-        
-        .btn-primary:hover {
-            background: #2980b9;
-        }
-        
-        .btn-success {
-            background: #2ecc71;
-            color: white;
-        }
-        
-        .btn-success:hover {
-            background: #27ae60;
-        }
-        
-        .btn-danger {
-            background: #e74c3c;
-            color: white;
-        }
-        
-        .btn-danger:hover {
-            background: #c0392b;
-        }
-        
-        .btn-warning {
-            background: #f39c12;
-            color: white;
-        }
-        
-        .btn-warning:hover {
-            background: #d68910;
-        }
-        
-        .btn-sm {
-            padding: 6px 12px;
-            font-size: 12px;
-        }
-        
-        /* 统计卡片 */
-        .stats-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .stat-card {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        }
-        
-        .stat-card h3 {
-            margin: 0 0 10px 0;
-            color: #2c3e50;
-            font-size: 16px;
-        }
-        
-        .stat-card .stat-value {
-            font-size: 28px;
-            font-weight: bold;
-            color: #3498db;
-        }
-        
-        .stat-card .stat-label {
-            font-size: 12px;
-            color: #666;
-            margin-top: 5px;
-        }
-        
-        /* 状态标签 */
         .status-badge {
             display: inline-block;
             padding: 3px 8px;
             border-radius: 3px;
             font-size: 12px;
-            font-weight: bold;
         }
         
-        .status-active {
-            background: #d4edda;
-            color: #155724;
+        .status-active { background: #d4edda; color: #155724; }
+        .status-inactive { background: #f8d7da; color: #721c24; }
+        .status-expired { background: #fff3cd; color: #856404; }
+        .status-online { background: #d4edda; color: #155724; }
+        .status-offline { background: #f8d7da; color: #721c24; }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 4px;
+            margin: 10px 0;
         }
         
-        .status-inactive {
-            background: #f8d7da;
-            color: #721c24;
+        .alert-success { background: #d4edda; color: #155724; }
+        .alert-danger { background: #f8d7da; color: #721c24; }
+        .alert-info { background: #d1ecf1; color: #0c5460; }
+        
+        .loading {
+            text-align: center;
+            padding: 20px;
+            color: #999;
         }
         
-        .status-expired {
-            background: #fff3cd;
-            color: #856404;
+        .search-box {
+            margin-bottom: 15px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
         }
+        
+        .search-box input {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .device-card {
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            background: #fafafa;
+        }
+        
+        .device-card:hover {
+            background: #f0f0f0;
+        }
+        
+        .device-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .device-details {
+            margin-top: 10px;
+            padding-top: 10px;
+            border-top: 1px dashed #ddd;
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 11px;
+            margin-left: 5px;
+        }
+        
+        .badge-primary { background: #3498db; color: white; }
+        .badge-success { background: #2ecc71; color: white; }
     </style>
 </head>
 <body>
@@ -257,121 +252,113 @@
         <!-- 侧边栏 -->
         <div class="sidebar">
             <div class="sidebar-header">
-                <h2>🔧 系统管理后台</h2>
+                <h2>🔧 管理后台</h2>
             </div>
             <ul class="sidebar-menu">
-                <li class="active" onclick="showSection('dashboard')">📊 控制面板</li>
-                <li onclick="showSection('users')">👥 用户管理</li>
-                <li onclick="showSection('addUser')">➕ 添加用户</li>
-                <li onclick="showSection('devices')">💻 设备管理</li>
-                <li onclick="showSection('logs')">📈 使用日志</li>
-                <li onclick="showSection('settings')">⚙️ 系统设置</li>
+                <li class="active" onclick="window.showSection('dashboard')">📊 控制面板</li>
+                <li onclick="window.showSection('users')">👥 用户管理</li>
+                <li onclick="window.showSection('addUser')">➕ 添加用户</li>
+                <li onclick="window.showSection('devices')">💻 设备管理</li>
+                <li onclick="window.showSection('logs')">📈 使用日志</li>
+                <li onclick="window.showSection('settings')">⚙️ 系统设置</li>
             </ul>
         </div>
-        
+        <!-- 在系统设置部分或其他位置添加 -->
+<div id="settingsSection" class="content-section" style="display:none;">
+    <h2 class="section-title">⚙️ 系统设置</h2>
+    <p>设置功能开发中...</p>
+    <!-- 添加调试按钮 -->
+    <button class="btn btn-warning" onclick="window.debugDevices()">调试设备</button>
+    <div id="debugOutput" style="margin-top: 20px; padding: 10px; background: #f0f0f0; border-radius: 5px;"></div>
+</div>
         <!-- 主内容区 -->
         <div class="main-content">
             <!-- 控制面板 -->
             <div id="dashboardSection" class="content-section">
-                <h2 class="section-title">📊 系统控制面板</h2>
-                
+                <h2 class="section-title">📊 控制面板</h2>
                 <div class="stats-cards">
                     <div class="stat-card">
                         <h3>总用户数</h3>
                         <div class="stat-value" id="totalUsers">0</div>
-                        <div class="stat-label">已创建的用户数量</div>
                     </div>
-                    
                     <div class="stat-card">
                         <h3>活跃用户</h3>
                         <div class="stat-value" id="activeUsers">0</div>
-                        <div class="stat-label">当前正常使用的用户</div>
                     </div>
-                    
                     <div class="stat-card">
                         <h3>今日登录</h3>
                         <div class="stat-value" id="todayLogins">0</div>
-                        <div class="stat-label">今日登录的用户数</div>
                     </div>
-                    
                     <div class="stat-card">
-                        <h3>总使用时长</h3>
-                        <div class="stat-value" id="totalUsageTime">0h</div>
-                        <div class="stat-label">所有用户累计使用</div>
+                        <h3>在线设备</h3>
+                        <div class="stat-value" id="onlineDevices">0</div>
                     </div>
                 </div>
                 
-                <div class="content-section">
-                    <h3 class="section-title">📈 最近活动</h3>
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>时间</th>
-                                <th>用户</th>
-                                <th>操作</th>
-                                <th>设备</th>
-                            </tr>
-                        </thead>
-                        <tbody id="recentActivities">
-                            <!-- 最近活动数据 -->
-                        </tbody>
-                    </table>
-                </div>
+                <h3 class="section-title">最近活动</h3>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>用户</th>
+                            <th>操作</th>
+                            <th>设备</th>
+                        </tr>
+                    </thead>
+                    <tbody id="recentActivities">
+                        <tr><td colspan="4" class="loading">加载中...</td></tr>
+                    </tbody>
+                </table>
             </div>
             
             <!-- 用户管理 -->
             <div id="usersSection" class="content-section" style="display:none;">
                 <h2 class="section-title">👥 用户管理</h2>
                 
-                <div class="form-group">
-                    <input type="text" id="userSearch" placeholder="搜索用户（按密码或备注）" 
-                           onkeyup="searchUsers()" style="width:300px; padding:10px;">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="搜索用户(密码或备注)...">
+                    <button class="btn btn-primary" onclick="window.searchUsers()">搜索</button>
+                    <button class="btn btn-primary" onclick="window.loadUsers()">刷新</button>
                 </div>
                 
                 <table class="data-table">
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>显示名称</th>
                             <th>密码</th>
                             <th>备注</th>
                             <th>状态</th>
                             <th>有效期</th>
+                            <th>设备数</th>
                             <th>登录次数</th>
                             <th>最后登录</th>
                             <th>操作</th>
                         </tr>
                     </thead>
                     <tbody id="usersTableBody">
-                        <!-- 用户数据 -->
+                        <tr><td colspan="9" class="loading">加载中...</td></tr>
                     </tbody>
                 </table>
-                
-                <div style="margin-top: 20px;">
-                    <button class="btn btn-primary" onclick="loadUsers()">刷新列表</button>
-                </div>
             </div>
             
             <!-- 添加用户 -->
             <div id="addUserSection" class="content-section" style="display:none;">
-                <h2 class="section-title">➕ 添加新用户</h2>
+                <h2 class="section-title">➕ 添加用户</h2>
                 
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>密码：</label>
-                        <input type="text" id="newPassword" placeholder="用户登录密码">
-                        <button class="btn btn-sm" onclick="generatePassword()" style="margin-top:5px;">随机生成</button>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>显示名称：</label>
-                        <input type="text" id="newDisplayName" placeholder="显示给用户的名称">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>备注：</label>
-                        <input type="text" id="newUserNote" placeholder="备注信息（如：张三）">
-                    </div>
+                <div class="form-group">
+                    <label>密码：</label>
+                    <input type="text" id="newPassword" placeholder="用户登录密码">
+                    <button class="btn btn-sm btn-primary" onclick="window.generatePassword()" style="margin-top:5px;">随机生成</button>
+                </div>
+                
+                <div class="form-group">
+                    <label>备注：</label>
+                    <input type="text" id="newUserNote" placeholder="备注信息">
+                </div>
+                
+                <div class="form-group">
+                    <label>最大设备数：</label>
+                    <input type="number" id="maxDevices" value="3" min="1" max="10">
                 </div>
                 
                 <div class="form-row">
@@ -381,19 +368,12 @@
                             <option value="7">7天</option>
                             <option value="30" selected>30天</option>
                             <option value="90">90天</option>
-                            <option value="180">180天</option>
-                            <option value="365">1年</option>
                             <option value="0">永久</option>
                         </select>
                     </div>
                     
                     <div class="form-group">
-                        <label>最大设备数：</label>
-                        <input type="number" id="maxDevices" value="1" min="1" max="5">
-                    </div>
-                    
-                    <div class="form-group">
-                        <label>初始状态：</label>
+                        <label>状态：</label>
                         <select id="initialStatus">
                             <option value="active" selected>正常</option>
                             <option value="inactive">停用</option>
@@ -401,12 +381,63 @@
                     </div>
                 </div>
                 
-                <button class="btn btn-success" onclick="addUser()">添加用户</button>
+                <button class="btn btn-success" onclick="window.addUser()">添加用户</button>
                 
                 <div id="addUserResult" style="margin-top:15px;"></div>
             </div>
             
-            <!-- 其他部分... -->
+            <!-- 设备管理 -->
+            <div id="devicesSection" class="content-section" style="display:none;">
+                <h2 class="section-title">💻 设备管理</h2>
+                
+                <div class="search-box">
+                    <input type="text" id="deviceSearch" placeholder="搜索设备ID或用户...">
+                    <button class="btn btn-primary" onclick="window.loadDevices()">搜索</button>
+                    <button class="btn btn-primary" onclick="window.loadDevices()">刷新</button>
+                </div>
+                
+                <div id="devicesList" style="margin-top: 20px;">
+                    <!-- 设备列表会动态加载到这里 -->
+                    <div class="loading">加载设备列表中...</div>
+                </div>
+            </div>
+            
+            <!-- 使用日志 -->
+            <div id="logsSection" class="content-section" style="display:none;">
+                <h2 class="section-title">📈 使用日志</h2>
+                
+                <div class="search-box">
+                    <input type="text" id="logSearch" placeholder="搜索日志...">
+                    <select id="logActionFilter">
+                        <option value="">全部操作</option>
+                        <option value="login">登录</option>
+                        <option value="logout">退出</option>
+                    </select>
+                    <button class="btn btn-primary" onclick="window.loadLogs()">筛选</button>
+                </div>
+                
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>时间</th>
+                            <th>用户</th>
+                            <th>操作</th>
+                            <th>设备ID</th>
+                            <th>设备信息</th>
+                            <th>IP地址</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logsTableBody">
+                        <tr><td colspan="6" class="loading">加载中...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- 系统设置 -->
+            <div id="settingsSection" class="content-section" style="display:none;">
+                <h2 class="section-title">⚙️ 系统设置</h2>
+                <p>设置功能开发中...</p>
+            </div>
         </div>
     </div>
 
@@ -414,402 +445,804 @@
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
     
     <script>
-        // Supabase配置
-        const SUPABASE_URL = 'https://mzsuaimcgphlcfrenrwg.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im16c3VhaW1jZ3BobGNmcmVucndnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ3NTA4OTYsImV4cCI6MjA4MDMyNjg5Nn0.Hf1Q6JQ-KHfmh58BIjDgzBTS5DVIQxXbnIKXfjKPQg4';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        
-        // 管理密码（您需要设置一个管理密码）
-        const ADMIN_PASSWORD = 'cy0000'; // 请修改这个密码
-        
-        // 检查管理权限
-        async function checkAdminAuth() {
-            const savedPassword = localStorage.getItem('admin_password');
+        (function() {
+            console.log('脚本开始执行');
             
-            if (!savedPassword || savedPassword !== ADMIN_PASSWORD) {
-                const password = prompt('请输入管理密码：');
-                if (password === ADMIN_PASSWORD) {
-                    localStorage.setItem('admin_password', password);
-                } else {
-                    alert('密码错误！');
-                    window.location.href = 'login.html';
-                    return false;
-                }
-            }
+            const SUPABASE_URL = 'https://mzsuaimcgphlcfrenrwg.supabase.co';
+            const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im16c3VhaW1jZ3BobGNmcmVucndnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQ3NTA4OTYsImV4cCI6MjA4MDMyNjg5Nn0.Hf1Q6JQ-KHfmh58BIjDgzBTS5DVIQxXbnIKXfjKPQg4';
             
+            const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            const ADMIN_PASSWORD = 'cy0000';
+            
+            // 检查管理员权限
+function checkAdminAuth() {
+    const savedPassword = localStorage.getItem('admin_password');
+    const loginTime = localStorage.getItem('admin_login_time');
+    
+    // 检查会话是否过期（24小时）
+    if (loginTime && (Date.now() - parseInt(loginTime)) > 24 * 60 * 60 * 1000) {
+        localStorage.removeItem('admin_password');
+        localStorage.removeItem('admin_login_time');
+        alert('登录已过期，请重新登录');
+        window.location.href = 'login.html';
+        return false;
+    }
+    
+    if (savedPassword !== ADMIN_PASSWORD) {
+        const password = prompt('请输入管理密码：');
+        if (password === ADMIN_PASSWORD) {
+            localStorage.setItem('admin_password', password);
+            localStorage.setItem('admin_login_time', Date.now().toString());
             return true;
+        } else {
+            alert('密码错误！');
+            window.location.href = 'login.html';
+            return false;
         }
-        
-        // 显示不同部分
-        function showSection(sectionId) {
-            // 隐藏所有部分
-            document.querySelectorAll('.content-section').forEach(section => {
-                section.style.display = 'none';
-            });
+    }
+    return true;
+}
             
-            // 显示目标部分
-            document.getElementById(sectionId + 'Section').style.display = 'block';
-            
-            // 更新菜单激活状态
-            document.querySelectorAll('.sidebar-menu li').forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            // 激活对应的菜单项
-            const menuItem = document.querySelector(`.sidebar-menu li[onclick*="${sectionId}"]`);
-            if (menuItem) {
-                menuItem.classList.add('active');
-            }
-            
-            // 加载对应部分的数据
-            if (sectionId === 'dashboard') {
-                loadDashboard();
-            } else if (sectionId === 'users') {
-                loadUsers();
-            }
-        }
-        
-        // 加载控制面板数据
-        async function loadDashboard() {
-            // 加载统计数据
-            const { data: users, error: usersError } = await supabase
-                .from('users')
-                .select('*');
-            
-            if (!usersError && users) {
-                // 计算统计
-                const totalUsers = users.length;
-                const activeUsers = users.filter(u => u.status === 'active').length;
+            // 显示不同的部分
+            window.showSection = function(sectionId) {
+                console.log('切换到:', sectionId);
                 
-                // 今日登录用户
-                const today = new Date();
-                today.setHours(0, 0, 0, 0);
-                const todayLogins = users.filter(u => {
-                    if (!u.last_login) return false;
-                    const loginDate = new Date(u.last_login);
-                    return loginDate >= today;
-                }).length;
-                
-                // 总使用时长
-                const totalUsageTime = users.reduce((sum, user) => {
-                    return sum + (user.total_login_time || 0);
-                }, 0);
-                const totalHours = Math.floor(totalUsageTime / 3600);
-                
-                // 更新显示
-                document.getElementById('totalUsers').textContent = totalUsers;
-                document.getElementById('activeUsers').textContent = activeUsers;
-                document.getElementById('todayLogins').textContent = todayLogins;
-                document.getElementById('totalUsageTime').textContent = totalHours + 'h';
-            }
-            
-            // 加载最近活动
-            const { data: logs } = await supabase
-                .from('usage_logs')
-                .select('*, users(display_name, note)')
-                .order('created_at', { ascending: false })
-                .limit(10);
-            
-            const activitiesBody = document.getElementById('recentActivities');
-            activitiesBody.innerHTML = '';
-            
-            if (logs) {
-                logs.forEach(log => {
-                    const row = document.createElement('tr');
-                    const time = new Date(log.created_at).toLocaleString();
-                    const userName = log.users?.display_name || log.users?.note || '未知用户';
-                    const action = log.action === 'login' ? '登录' : '退出';
-                    const device = log.user_agent?.split(' ')[0] || '未知设备';
-                    
-                    row.innerHTML = `
-                        <td>${time}</td>
-                        <td>${userName}</td>
-                        <td>${action}</td>
-                        <td>${device}</td>
-                    `;
-                    activitiesBody.appendChild(row);
+                document.querySelectorAll('.content-section').forEach(section => {
+                    section.style.display = 'none';
                 });
-            }
-        }
-        
-        // 加载用户列表
-        async function loadUsers() {
-            const { data: users, error } = await supabase
-                .from('users')
-                .select('*')
-                .order('created_at', { ascending: false });
-            
-            if (error) {
-                alert('加载用户失败：' + error.message);
-                return;
-            }
-            
-            const tbody = document.getElementById('usersTableBody');
-            tbody.innerHTML = '';
-            
-            users.forEach(user => {
-                const row = document.createElement('tr');
                 
-                // 格式化时间
-                const lastLogin = user.last_login ? 
-                    new Date(user.last_login).toLocaleString() : '从未登录';
-                
-                // 格式化有效期
-                let expireDate = '永久';
-                if (user.expire_date) {
-                    const date = new Date(user.expire_date);
-                    expireDate = date.toLocaleDateString();
+                const targetSection = document.getElementById(sectionId + 'Section');
+                if (targetSection) {
+                    targetSection.style.display = 'block';
                 }
                 
-                row.innerHTML = `
-                    <td>${user.id}</td>
-                    <td>${user.display_name || '-'}</td>
-                    <td><code>${atob(user.password_hash)}</code></td>
-                    <td>${user.note || '-'}</td>
-                    <td>
-                        <span class="status-badge status-${user.status}">${user.status}</span>
-                        <select onchange="updateUserStatus(${user.id}, this.value)" style="margin-left:10px;">
-                            <option value="active" ${user.status === 'active' ? 'selected' : ''}>正常</option>
-                            <option value="inactive" ${user.status === 'inactive' ? 'selected' : ''}>停用</option>
-                            <option value="expired" ${user.status === 'expired' ? 'selected' : ''}>过期</option>
-                        </select>
-                    </td>
-                    <td>${expireDate}</td>
-                    <td>${user.login_count || 0}</td>
-                    <td>${lastLogin}</td>
-                    <td>
-                        <button class="btn btn-sm btn-warning" onclick="editUser(${user.id})">编辑</button>
-                        <button class="btn btn-sm btn-danger" onclick="deleteUser(${user.id})">删除</button>
-                        <button class="btn btn-sm btn-primary" onclick="resetPassword(${user.id})">重置密码</button>
-                        <button class="btn btn-sm" onclick="extendUser(${user.id})">续期</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
-        }
-        
-        // 搜索用户
-        async function searchUsers() {
-            const searchTerm = document.getElementById('userSearch').value.trim().toLowerCase();
-            
-            if (!searchTerm) {
-                loadUsers();
-                return;
-            }
-            
-            const { data: users, error } = await supabase
-                .from('users')
-                .select('*');
-            
-            if (error) return;
-            
-            const filteredUsers = users.filter(user => {
-                const password = atob(user.password_hash).toLowerCase();
-                const note = (user.note || '').toLowerCase();
-                const displayName = (user.display_name || '').toLowerCase();
-                
-                return password.includes(searchTerm) || 
-                       note.includes(searchTerm) || 
-                       displayName.includes(searchTerm);
-            });
-            
-            const tbody = document.getElementById('usersTableBody');
-            tbody.innerHTML = '';
-            
-            filteredUsers.forEach(user => {
-                const row = document.createElement('tr');
-                // ... 与loadUsers相同的行创建代码 ...
-                tbody.appendChild(row);
-            });
-        }
-        
-        // 添加用户
-        async function addUser() {
-            const password = document.getElementById('newPassword').value.trim();
-            const displayName = document.getElementById('newDisplayName').value.trim();
-            const note = document.getElementById('newUserNote').value.trim();
-            const expireDays = parseInt(document.getElementById('expireType').value);
-            const maxDevices = parseInt(document.getElementById('maxDevices').value);
-            const initialStatus = document.getElementById('initialStatus').value;
-            
-            if (!password) {
-                alert('请填写密码');
-                return;
-            }
-            
-            // 检查密码是否已存在
-            const passwordHash = btoa(password);
-            const { data: existingUser } = await supabase
-                .from('users')
-                .select('*')
-                .eq('password_hash', passwordHash)
-                .single();
-            
-            if (existingUser) {
-                alert('该密码已存在，请使用其他密码');
-                return;
-            }
-            
-            // 计算过期时间
-            let expireDate = null;
-            if (expireDays > 0) {
-                expireDate = new Date();
-                expireDate.setDate(expireDate.getDate() + expireDays);
-            }
-            
-            // 添加用户
-            const { error } = await supabase
-                .from('users')
-                .insert({
-                    password_hash: passwordHash,
-                    display_name: displayName || '用户',
-                    note: note,
-                    status: initialStatus,
-                    expire_date: expireDate,
-                    max_devices: maxDevices,
-                    created_at: new Date().toISOString()
+                document.querySelectorAll('.sidebar-menu li').forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('onclick')?.includes(sectionId)) {
+                        item.classList.add('active');
+                    }
                 });
+                
+                if (sectionId === 'dashboard') {
+                    loadDashboard();
+                } else if (sectionId === 'users') {
+                    loadUsers();
+                } else if (sectionId === 'devices') {
+                    loadDevices();
+                } else if (sectionId === 'logs') {
+                    loadLogs();
+                }
+            };
             
-            if (error) {
-                document.getElementById('addUserResult').innerHTML = 
-                    `<div style="color:red;">添加失败：${error.message}</div>`;
-                return;
+            // 加载仪表板数据
+            async function loadDashboard() {
+                console.log('加载仪表板数据...');
+                
+                try {
+                    // 获取用户统计
+                    const { data: users, error: userError } = await supabase
+                        .from('users')
+                        .select('*');
+                    
+                    if (userError) throw userError;
+                    
+                    // 获取设备统计
+                    const { data: devices, error: deviceError } = await supabase
+                        .from('devices')
+                        .select('*');
+                    
+                    if (deviceError) throw deviceError;
+                    
+                    if (users) {
+                        document.getElementById('totalUsers').textContent = users.length;
+                        document.getElementById('activeUsers').textContent = 
+                            users.filter(u => u.status === 'active').length;
+                        
+                        const today = new Date();
+                        today.setHours(0, 0, 0, 0);
+                        const todayLogins = users.filter(u => {
+                            if (!u.last_login) return false;
+                            return new Date(u.last_login) >= today;
+                        }).length;
+                        document.getElementById('todayLogins').textContent = todayLogins;
+                    }
+                    
+                    // 在线设备（最近5分钟活跃）
+                    if (devices) {
+                        const fiveMinutesAgo = new Date(Date.now() - 5 * 60 * 1000);
+                        const onlineDevices = devices.filter(d => {
+                            if (!d.last_active) return false;
+                            return new Date(d.last_active) > fiveMinutesAgo;
+                        }).length;
+                        document.getElementById('onlineDevices').textContent = onlineDevices;
+                    }
+                    
+                    // 获取最近活动
+                    const { data: logs } = await supabase
+                        .from('usage_logs')
+                        .select('*, users(display_name, note)')
+                        .order('created_at', { ascending: false })
+                        .limit(10);
+                    
+                    const tbody = document.getElementById('recentActivities');
+                    tbody.innerHTML = '';
+                    
+                    if (logs && logs.length > 0) {
+                        logs.forEach(log => {
+                            const row = tbody.insertRow();
+                            const userName = log.users?.display_name || log.users?.note || '未知用户';
+                            const deviceInfo = log.user_agent ? log.user_agent.substring(0, 30) + '...' : '未知设备';
+                            row.innerHTML = `
+                                <td>${new Date(log.created_at).toLocaleString()}</td>
+                                <td>${userName}</td>
+                                <td><span class="status-badge status-${log.action}">${log.action === 'login' ? '登录' : '退出'}</span></td>
+                                <td>${deviceInfo}</td>
+                            `;
+                        });
+                    } else {
+                        tbody.innerHTML = '<tr><td colspan="4" class="loading">暂无活动记录</td></tr>';
+                    }
+                    
+                } catch (error) {
+                    console.error('加载仪表板失败:', error);
+                }
             }
             
-            document.getElementById('addUserResult').innerHTML = `
-                <div style="color:green;">
-                    <strong>✅ 用户添加成功！</strong>
-                    <p>密码：${password}</p>
-                    <p>请将密码发给用户</p>
+            // 加载用户列表
+            window.loadUsers = async function() {
+                console.log('加载用户列表...');
+                
+                try {
+                    const { data: users, error } = await supabase
+                        .from('users')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+                    
+                    if (error) throw error;
+                    
+                    // 获取每个用户的设备数量
+                    const { data: devices } = await supabase
+                        .from('devices')
+                        .select('password_hash');
+                    
+                    const deviceCounts = {};
+                    if (devices) {
+                        devices.forEach(d => {
+                            deviceCounts[d.password_hash] = (deviceCounts[d.password_hash] || 0) + 1;
+                        });
+                    }
+                    
+                    const tbody = document.getElementById('usersTableBody');
+                    tbody.innerHTML = '';
+                    
+                    if (!users || users.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="9" class="loading">暂无用户</td></tr>';
+                        return;
+                    }
+                    
+                    users.forEach(user => {
+                        const row = tbody.insertRow();
+                        
+                        let password = '未知';
+                        try {
+                            password = atob(user.password_hash);
+                        } catch (e) {
+                            password = user.password_hash;
+                        }
+                        
+                        const lastLogin = user.last_login ? 
+                            new Date(user.last_login).toLocaleString() : '从未';
+                        
+                        const expireDate = user.expire_date ? 
+                            new Date(user.expire_date).toLocaleDateString() : '永久';
+                        
+                        const deviceCount = deviceCounts[user.password_hash] || 0;
+                        const maxDevices = user.max_devices || 3;
+                        
+                        row.innerHTML = `
+                            <td>${user.id}</td>
+                            <td><code>${password}</code></td>
+                            <td>${user.note || '-'}</td>
+                            <td>
+                                <span class="status-badge status-${user.status}">${user.status}</span>
+                            </td>
+                            <td>${expireDate}</td>
+                            <td>
+                                ${deviceCount}/${maxDevices}
+                                <span class="badge ${deviceCount >= maxDevices ? 'badge-primary' : 'badge-success'}">${deviceCount}</span>
+                            </td>
+                            <td>${user.login_count || 0}</td>
+                            <td>${lastLogin}</td>
+                            <td>
+                                <button class="btn btn-sm btn-info" onclick="window.viewUserDevices(${user.id})">查看设备</button>
+                                <button class="btn btn-sm btn-warning" onclick="window.editUser(${user.id})">编辑</button>
+                                <button class="btn btn-sm btn-danger" onclick="window.deleteUser(${user.id})">删除</button>
+                            </td>
+                        `;
+                    });
+                    
+                } catch (error) {
+                    console.error('加载用户失败:', error);
+                    alert('加载失败：' + error.message);
+                }
+            };
+            
+            // 查看用户的设备
+            window.viewUserDevices = async function(userId) {
+                try {
+                    // 先获取用户信息
+                    const { data: user } = await supabase
+                        .from('users')
+                        .select('*')
+                        .eq('id', userId)
+                        .single();
+                    
+                    if (!user) return;
+                    
+                    // 获取用户的设备
+                    const { data: devices } = await supabase
+                        .from('devices')
+                        .select('*')
+                        .eq('password_hash', user.password_hash)
+                        .order('last_active', { ascending: false });
+                    
+                    let deviceHtml = `
+                        <div style="margin-bottom: 15px;">
+                            <h4>用户: ${user.note || '未命名'} (ID: ${userId})</h4>
+                            <p>最大设备数: ${user.max_devices || 3} | 当前设备数: ${devices?.length || 0}</p>
+                        </div>
+                    `;
+                    
+                    if (!devices || devices.length === 0) {
+                        deviceHtml += '<div class="alert alert-info">该用户暂无绑定设备</div>';
+                    } else {
+                        devices.forEach(device => {
+                            const lastActive = device.last_active ? 
+                                new Date(device.last_active).toLocaleString() : '从未';
+                            
+                            const isOnline = device.last_active && 
+                                (new Date() - new Date(device.last_active)) < 5 * 60 * 1000;
+                            const deviceFingerprint = device.device_fingerprint || 'unknown';
+                            const passwordHash = user.password_hash || '';
+                            // 添加调试日志
+                            console.log('生成设备按钮:', { 
+                                deviceFingerprint, 
+                                passwordHash,
+                                rawDevice: device 
+                            });
+                            deviceHtml += `
+                                <div class="device-card">
+                                    <div class="device-info">
+                                        <div>
+                                            <strong>设备ID:</strong> ${device.device_id}
+                                            <span class="status-badge status-${isOnline ? 'online' : 'offline'}">
+                                                ${isOnline ? '在线' : '离线'}
+                                            </span>
+                                        </div>
+                                        <button class="btn btn-sm btn-danger" onclick="window.removeDevice('${device.device_id}', ${userId})">移除设备</button>
+                                    </div>
+                                    <div class="device-details">
+                                        <div><strong>设备名称:</strong> ${device.device_name || '未知'}</div>
+                                        <div><strong>最后活跃:</strong> ${lastActive}</div>
+                                        <div><strong>首次绑定:</strong> ${new Date(device.created_at).toLocaleString()}</div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                    }
+                    
+                    // 显示在模态框中
+                    showModal(`用户设备列表 - ${user.note || '未命名'}`, deviceHtml);
+                    
+                } catch (error) {
+                    console.error('查看设备失败:', error);
+                    alert('加载设备失败：' + error.message);
+                }
+            };
+            
+            // 加载所有设备
+window.loadDevices = async function() {
+    console.log('加载设备列表...');
+    
+    try {
+        const searchTerm = document.getElementById('deviceSearch')?.value.toLowerCase() || '';
+        
+        // 查询所有设备，关联用户信息
+        const { data: devices, error } = await supabase
+            .from('devices')
+            .select(`
+                *,
+                users!inner (
+                    id,
+                    note,
+                    display_name,
+                    password_hash
+                )
+            `)
+            .order('last_active', { ascending: false });
+        
+        if (error) throw error;
+        
+        console.log('查询到的所有设备:', devices);
+        
+        const devicesList = document.getElementById('devicesList');
+        
+        if (!devices || devices.length === 0) {
+            devicesList.innerHTML = '<div class="alert alert-info">暂无设备数据</div>';
+            return;
+        }
+        
+        // 过滤
+        const filtered = devices.filter(device => {
+            if (!searchTerm) return true;
+            const userName = device.users?.note || device.users?.display_name || '';
+            return (device.device_fingerprint || '').toLowerCase().includes(searchTerm) ||
+                   userName.toLowerCase().includes(searchTerm);
+        });
+        
+        let html = '<div style="display: grid; gap: 10px;">';
+        
+        filtered.forEach(device => {
+            const userName = device.users?.note || device.users?.display_name || '未知用户';
+            const lastActive = device.last_active ? 
+                new Date(device.last_active).toLocaleString() : '从未';
+            
+            const isOnline = device.last_active && 
+                (new Date() - new Date(device.last_active)) < 5 * 60 * 1000;
+            
+            const deviceFingerprint = device.device_fingerprint || 'unknown';
+            const passwordHash = device.password_hash || '';
+            
+            html += `
+                <div class="device-card">
+                    <div class="device-info">
+                        <div>
+                            <strong>设备ID:</strong> ${deviceFingerprint}
+                            <span class="status-badge status-${isOnline ? 'online' : 'offline'}">
+                                ${isOnline ? '在线' : '离线'}
+                            </span>
+                        </div>
+                        <div>
+                            <strong>用户:</strong> ${userName}
+                            <button class="btn btn-sm btn-danger" 
+                                    onclick="window.removeDevice('${deviceFingerprint}', '${passwordHash}')">
+                                移除
+                            </button>
+                        </div>
+                    </div>
+                    <div class="device-details">
+                        <div><strong>设备名称:</strong> ${device.device_name || '未知'}</div>
+                        <div><strong>最后活跃:</strong> ${lastActive}</div>
+                        <div><strong>首次绑定:</strong> ${new Date(device.created_at).toLocaleString()}</div>
+                        <div><strong>IP地址:</strong> ${device.ip_address || '未知'}</div>
+                    </div>
                 </div>
             `;
-            
-            // 清空表单
-            document.getElementById('newPassword').value = '';
-            document.getElementById('newDisplayName').value = '';
-            document.getElementById('newUserNote').value = '';
+        });
+        
+        html += '</div>';
+        
+        if (filtered.length === 0) {
+            html = '<div class="alert alert-info">没有匹配的设备</div>';
         }
         
-        // 生成随机密码
-        function generatePassword() {
-            const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
-            let password = '';
-            for (let i = 0; i < 8; i++) {
-                password += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            document.getElementById('newPassword').value = password;
+        devicesList.innerHTML = html;
+        
+    } catch (error) {
+        console.error('加载设备失败:', error);
+        document.getElementById('devicesList').innerHTML = 
+            '<div class="alert alert-danger">加载失败：' + error.message + '</div>';
+    }
+};
+            
+            // 移除设备
+window.removeDevice = async function(deviceFingerprint, passwordHash) {
+    console.log('移除设备请求:', { deviceFingerprint, passwordHash });
+    
+    // 参数验证
+    if (!deviceFingerprint || deviceFingerprint === 'undefined' || deviceFingerprint === 'unknown') {
+        alert('错误：设备指纹无效');
+        return;
+    }
+    
+    if (!passwordHash) {
+        alert('错误：用户密码哈希为空');
+        return;
+    }
+    
+    if (!confirm('确定要移除这台设备吗？')) return;
+    
+    try {
+        // 先检查设备是否存在
+        const { data: existingDevice, error: checkError } = await supabase
+            .from('devices')
+            .select('id, device_name, last_active')
+            .eq('device_fingerprint', deviceFingerprint)
+            .eq('password_hash', passwordHash)
+            .maybeSingle();
+        
+        if (checkError) throw checkError;
+        
+        if (!existingDevice) {
+            alert('设备不存在或已被移除');
+            return;
         }
         
-        // 更新用户状态
-        async function updateUserStatus(userId, status) {
-            const { error } = await supabase
-                .from('users')
-                .update({ status: status })
-                .eq('id', userId);
-            
-            if (error) {
-                alert('更新失败：' + error.message);
-                return;
-            }
-            
-            alert('状态已更新');
+        console.log('找到要移除的设备:', existingDevice);
+        
+        // 删除设备
+        const { error: deleteError } = await supabase
+            .from('devices')
+            .delete()
+            .eq('device_fingerprint', deviceFingerprint)
+            .eq('password_hash', passwordHash);
+        
+        if (deleteError) throw deleteError;
+        
+        alert('设备已成功移除');
+        
+        // 刷新当前视图
+        if (document.getElementById('devicesSection').style.display !== 'none') {
+            loadDevices();
+        } else {
             loadUsers();
         }
+        
+    } catch (error) {
+        console.error('移除设备失败:', error);
+        alert('移除失败：' + error.message);
+    }
+};
+            
+            // 加载日志
+            window.loadLogs = async function() {
+                console.log('加载日志...');
+                
+                try {
+                    const searchTerm = document.getElementById('logSearch')?.value.toLowerCase() || '';
+                    const actionFilter = document.getElementById('logActionFilter')?.value || '';
+                    
+                    let query = supabase
+                        .from('usage_logs')
+                        .select('*, users!inner(display_name, note)')
+                        .order('created_at', { ascending: false })
+                        .limit(100);
+                    
+                    if (actionFilter) {
+                        query = query.eq('action', actionFilter);
+                    }
+                    
+                    const { data: logs, error } = await query;
+                    
+                    if (error) throw error;
+                    
+                    const tbody = document.getElementById('logsTableBody');
+                    tbody.innerHTML = '';
+                    
+                    if (!logs || logs.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="6" class="loading">暂无日志</td></tr>';
+                        return;
+                    }
+                    
+                    // 过滤
+                    const filtered = logs.filter(log => {
+                        if (!searchTerm) return true;
+                        const userName = log.users?.note || log.users?.display_name || '';
+                        return userName.toLowerCase().includes(searchTerm) ||
+                               (log.device_fingerprint || '').toLowerCase().includes(searchTerm) ||
+                               (log.ip_address || '').includes(searchTerm);
+                    });
+                    
+                    filtered.forEach(log => {
+                        const row = tbody.insertRow();
+                        const userName = log.users?.note || log.users?.display_name || '未知用户';
+                        const deviceInfo = log.user_agent ? log.user_agent.substring(0, 30) + '...' : '未知';
+                        
+                        row.innerHTML = `
+                            <td>${new Date(log.created_at).toLocaleString()}</td>
+                            <td>${userName}</td>
+                            <td><span class="status-badge status-${log.action}">${log.action}</span></td>
+                            <td>${log.device_id || '-'}</td>
+                            <td>${deviceInfo}</td>
+                            <td>${log.ip_address || '-'}</td>
+                        `;
+                    });
+                    
+                } catch (error) {
+                    console.error('加载日志失败:', error);
+                }
+            };
+            
+            // 搜索用户
+            window.searchUsers = async function() {
+                const searchText = document.getElementById('searchInput').value.toLowerCase();
+                
+                if (!searchText) {
+                    loadUsers();
+                    return;
+                }
+                
+                try {
+                    const { data: users, error } = await supabase
+                        .from('users')
+                        .select('*');
+                    
+                    if (error) throw error;
+                    
+                    const filtered = users.filter(user => {
+                        try {
+                            const password = atob(user.password_hash).toLowerCase();
+                            const note = (user.note || '').toLowerCase();
+                            return password.includes(searchText) || note.includes(searchText);
+                        } catch {
+                            return false;
+                        }
+                    });
+                    
+                    const tbody = document.getElementById('usersTableBody');
+                    tbody.innerHTML = '';
+                    
+                    if (filtered.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="9" class="loading">未找到匹配的用户</td></tr>';
+                        return;
+                    }
+                    
+                    filtered.forEach(user => {
+                        const row = tbody.insertRow();
+                        let password = '未知';
+                        try {
+                            password = atob(user.password_hash);
+                        } catch (e) {}
+                        
+                        row.innerHTML = `
+                            <td>${user.id}</td>
+                            <td><code>${password}</code></td>
+                            <td>${user.note || '-'}</td>
+                            <td>
+                                <span class="status-badge status-${user.status}">${user.status}</span>
+                            </td>
+                            <td>${user.expire_date ? new Date(user.expire_date).toLocaleDateString() : '永久'}</td>
+                            <td>-</td>
+                            <td>${user.login_count || 0}</td>
+                            <td>${user.last_login ? new Date(user.last_login).toLocaleString() : '从未'}</td>
+                            <td>
+                                <button class="btn btn-sm btn-info" onclick="window.viewUserDevices(${user.id})">查看设备</button>
+                                <button class="btn btn-sm btn-warning" onclick="window.editUser(${user.id})">编辑</button>
+                                <button class="btn btn-sm btn-danger" onclick="window.deleteUser(${user.id})">删除</button>
+                            </td>
+                        `;
+                    });
+                    
+                } catch (error) {
+                    console.error('搜索失败:', error);
+                }
+            };
+            
+            // 生成随机密码
+            window.generatePassword = function() {
+                const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789';
+                let password = '';
+                for (let i = 0; i < 8; i++) {
+                    password += chars[Math.floor(Math.random() * chars.length)];
+                }
+                document.getElementById('newPassword').value = password;
+            };
+            
+            // 添加用户
+            window.addUser = async function() {
+                const password = document.getElementById('newPassword').value.trim();
+                const note = document.getElementById('newUserNote').value.trim();
+                const maxDevices = parseInt(document.getElementById('maxDevices').value) || 3;
+                const expireDays = parseInt(document.getElementById('expireType').value);
+                const status = document.getElementById('initialStatus').value;
+                
+                if (!password) {
+                    alert('请填写密码');
+                    return;
+                }
+                
+                try {
+                    const passwordHash = btoa(password);
+                    
+                    const { data: existing } = await supabase
+                        .from('users')
+                        .select('id')
+                        .eq('password_hash', passwordHash)
+                        .maybeSingle();
+                    
+                    if (existing) {
+                        alert('该密码已存在');
+                        return;
+                    }
+                    
+                    let expireDate = null;
+                    if (expireDays > 0) {
+                        expireDate = new Date();
+                        expireDate.setDate(expireDate.getDate() + expireDays);
+                    }
+                    
+                    const { error } = await supabase
+                        .from('users')
+                        .insert({
+                            password_hash: passwordHash,
+                            note: note,
+                            status: status,
+                            expire_date: expireDate,
+                            max_devices: maxDevices,
+                            created_at: new Date().toISOString(),
+                            login_count: 0,
+                            display_name: '用户'
+                        });
+                    
+                    if (error) throw error;
+                    
+                    document.getElementById('addUserResult').innerHTML = 
+                        '<div class="alert alert-success">✅ 用户添加成功！</div>';
+                    
+                    document.getElementById('newPassword').value = '';
+                    document.getElementById('newUserNote').value = '';
+                    
+                    loadUsers();
+                    
+                } catch (error) {
+                    console.error('添加用户失败:', error);
+                    document.getElementById('addUserResult').innerHTML = 
+                        `<div class="alert alert-danger">❌ 添加失败：${error.message}</div>`;
+                }
+            };
+            
+            // 编辑用户
+            window.editUser = async function(userId) {
+                const newNote = prompt('请输入新的备注：');
+                if (newNote === null) return;
+                
+                try {
+                    const { error } = await supabase
+                        .from('users')
+                        .update({ note: newNote })
+                        .eq('id', userId);
+                    
+                    if (error) throw error;
+                    
+                    alert('修改成功');
+                    loadUsers();
+                    
+                } catch (error) {
+                    console.error('编辑失败:', error);
+                    alert('编辑失败：' + error.message);
+                }
+            };
+            
+            // 删除用户
+window.deleteUser = async function(userId) {
+    if (!confirm('确定要删除这个用户吗？此操作会同时删除该用户的所有设备和日志！')) return;
+    
+    try {
+        // 先获取用户信息，检查设备数量
+        const { data: devices } = await supabase
+            .from('user_devices')
+            .select('count')
+            .eq('user_id', userId);
+            
+        if (devices && devices.length > 0) {
+            console.log(`删除用户时同时删除 ${devices.length} 台设备`);
+        }
+        
+        // 删除设备
+        await supabase
+            .from('user_devices')
+            .delete()
+            .eq('user_id', userId);
+        
+        // 删除日志
+        await supabase
+            .from('usage_logs')
+            .delete()
+            .eq('user_id', userId);
         
         // 删除用户
-        async function deleteUser(userId) {
-            if (!confirm('确定要删除这个用户吗？此操作将删除用户的所有数据！')) {
-                return;
-            }
-            
-            const { error } = await supabase
-                .from('users')
-                .delete()
-                .eq('id', userId);
-            
-            if (error) {
-                alert('删除失败：' + error.message);
-                return;
-            }
-            
-            alert('用户已删除');
-            loadUsers();
+        const { error } = await supabase
+            .from('users')
+            .delete()
+            .eq('id', userId);
+        
+        if (error) throw error;
+        
+        alert('删除成功');
+        loadUsers();
+        
+    } catch (error) {
+        console.error('删除失败:', error);
+        alert('删除失败：' + error.message);
+    }
+};
+// 调试函数 - 查看设备数据
+window.debugDevices = async function() {
+    const output = document.getElementById('debugOutput');
+    output.innerHTML = '正在查询设备数据...';
+    
+    try {
+        // 查询所有设备
+        const { data: devices, error } = await supabase
+            .from('devices')
+            .select('*, users!inner(*)');
+        
+        if (error) throw error;
+        
+        let html = '<h4>设备列表：</h4>';
+        html += '<pre>' + JSON.stringify(devices, null, 2) + '</pre>';
+        
+        // 如果有设备，显示第一个设备的字段
+        if (devices && devices.length > 0) {
+            html += '<h4>设备字段：</h4>';
+            html += '<pre>' + JSON.stringify(Object.keys(devices[0]), null, 2) + '</pre>';
         }
         
-        // 重置用户密码
-        async function resetPassword(userId) {
-            const newPassword = prompt('请输入新密码：');
-            if (!newPassword) return;
-            
-            const passwordHash = btoa(newPassword);
-            
-            const { error } = await supabase
-                .from('users')
-                .update({ password_hash: passwordHash })
-                .eq('id', userId);
-            
-            if (error) {
-                alert('重置失败：' + error.message);
-                return;
-            }
-            
-            alert(`密码已重置为：${newPassword}`);
-            loadUsers();
-        }
+        output.innerHTML = html;
         
-        // 为用户续期
-        async function extendUser(userId) {
-            const extendDays = prompt('请输入续期天数：', '30');
-            if (!extendDays) return;
-            
-            // 获取当前用户
-            const { data: user } = await supabase
-                .from('users')
-                .select('*')
-                .eq('id', userId)
-                .single();
-            
-            if (!user) return;
-            
-            let newExpireDate;
-            
-            if (user.expire_date) {
-                // 在原有基础上增加
-                const currentDate = new Date(user.expire_date);
-                currentDate.setDate(currentDate.getDate() + parseInt(extendDays));
-                newExpireDate = currentDate;
-            } else {
-                // 从今天开始计算
-                newExpireDate = new Date();
-                newExpireDate.setDate(newExpireDate.getDate() + parseInt(extendDays));
+    } catch (error) {
+        output.innerHTML = '<p style="color:red">错误：' + error.message + '</p>';
+    }
+};            
+            // 显示模态框
+            function showModal(title, content) {
+                // 创建模态框
+                const modal = document.createElement('div');
+                modal.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    background: rgba(0,0,0,0.5);
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    z-index: 1000;
+                `;
+                
+                const modalContent = document.createElement('div');
+                modalContent.style.cssText = `
+                    background: white;
+                    padding: 20px;
+                    border-radius: 8px;
+                    max-width: 600px;
+                    width: 90%;
+                    max-height: 80vh;
+                    overflow-y: auto;
+                    position: relative;
+                `;
+                
+                modalContent.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h3>${title}</h3>
+                        <button onclick="this.closest('.modal-container').remove()" style="background: none; border: none; font-size: 20px; cursor: pointer;">&times;</button>
+                    </div>
+                    <div>${content}</div>
+                `;
+                
+                modal.appendChild(modalContent);
+                modal.className = 'modal-container';
+                document.body.appendChild(modal);
+                
+                // 点击背景关闭
+                modal.addEventListener('click', function(e) {
+                    if (e.target === modal) {
+                        modal.remove();
+                    }
+                });
             }
             
-            const { error } = await supabase
-                .from('users')
-                .update({ 
-                    expire_date: newExpireDate.toISOString(),
-                    status: 'active'
-                })
-                .eq('id', userId);
+            // 页面加载
+            window.addEventListener('load', function() {
+                console.log('页面加载完成');
+                
+                if (!checkAdminAuth()) return;
+                
+                window.showSection('dashboard');
+            });
             
-            if (error) {
-                alert('续期失败：' + error.message);
-                return;
-            }
-            
-            alert(`已成功续期${extendDays}天，新有效期至：${newExpireDate.toLocaleDateString()}`);
-            loadUsers();
-        }
-        
-        // 页面加载
-        window.addEventListener('load', async function() {
-            // 检查管理权限
-            const isAuthenticated = await checkAdminAuth();
-            if (!isAuthenticated) return;
-            
-            // 显示控制面板
-            showSection('dashboard');
-        });
+        })();
     </script>
 </body>
 </html>
